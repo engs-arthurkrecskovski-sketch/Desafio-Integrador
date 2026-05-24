@@ -26,6 +26,18 @@ public final class Produto {
         this.criadoEm = criadoEm;
     }
 
+     public long getId() { return id; }
+    public String getNome() { return nome; }
+    public BigDecimal getPreco() { return preco; }
+    public int getQuantidadeEstoque() { return quantidadeEstoque; }
+    public Categoria getCategoria() { return categoria; }
+    public LocalDateTime getCriadoEm() { return criadoEm; }
+
+    @Override
+    public String toString() {
+        return String.format("[%d] %s | R$ %.2f | Estoque: %d | %s",
+                id, nome, preco, quantidadeEstoque, categoria);
+    }
 
 
 }
