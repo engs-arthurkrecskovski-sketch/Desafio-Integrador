@@ -3,7 +3,7 @@ package com.sistema.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public final class produto {
+public final class Produto {
     
    private final long id;
     private final String nome;
@@ -16,10 +16,15 @@ public final class produto {
         this(0L, nome, preco, quantidadeEstoque, categoria, LocalDateTime.now());
     }
 
-
-
-
-
+  public Produto(long id, String nome, BigDecimal preco, int quantidadeEstoque,
+                   Categoria categoria, LocalDateTime criadoEm) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.categoria = categoria;
+        this.criadoEm = criadoEm;
+    }
 
 
 
