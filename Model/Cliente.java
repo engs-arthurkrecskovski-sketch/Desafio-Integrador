@@ -20,5 +20,14 @@ public final class Cliente {
         this.criadoEm = criadoEm;
     }
 
+    public long getId() { return id; }
+    public String getNome() { return nome; }
+    public String getEmail() { return email; }
+    public LocalDateTime getCriadoEm() { return criadoEm; }
+
+    @Override 
+    public String toString() {
+        return "[" + id + "]" + nome + " - " + email; 
+    } 
 }
 
