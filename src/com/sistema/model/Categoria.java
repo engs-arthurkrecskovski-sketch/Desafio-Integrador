@@ -1,4 +1,4 @@
-package model;
+package com.sistema.model;
 
 public enum Categoria {
     ALIMENTOS, ELETRONICOS, LIVROS;
