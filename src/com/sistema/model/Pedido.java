@@ -50,3 +50,13 @@ public final class Pedido {
     public List<ItemPedido> getItens() {
         return Collections.unmodifiableList(itens);
     }
+
+    public void adicionarItem(ItemPedido item) {
+        if (this.status != StatusPedido.ABERTO) {
+            throw new IllegalStateException("Não é possível adicionar itens a um pedido que não está ABERTO.");
+        }
+        if (item == null) {
+            throw new IllegalArgumentException("O item a ser adicionado não pode ser nulo.");
+        }
+        this.itens.add(item);
+    }
