@@ -41,3 +41,8 @@ public final class Pedido {
         this.status = status;
         this.criadoEm = criadoEm;
     }
+
+    public long getId() { return id; }
+    public Cliente getCliente() { return cliente; }
+    public StatusPedido getStatus() { return status; }
+    public LocalDateTime getCriadoEm() { return criadoEm; }
