@@ -17,3 +17,9 @@ public final class Pedido {
         if (cliente == null) {
             throw new IllegalArgumentException("Um pedido precisa estar associado a um cliente válido.");
         }
+        this.id = 0L;
+        this.cliente = cliente;
+        this.itens = new ArrayList<>();
+        this.status = StatusPedido.ABERTO;
+        this.criadoEm = LocalDateTime.now();
+    }
