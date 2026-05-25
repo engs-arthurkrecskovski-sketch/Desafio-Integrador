@@ -46,3 +46,7 @@ public final class Pedido {
     public Cliente getCliente() { return cliente; }
     public StatusPedido getStatus() { return status; }
     public LocalDateTime getCriadoEm() { return criadoEm; }
+
+    public List<ItemPedido> getItens() {
+        return Collections.unmodifiableList(itens);
+    }
