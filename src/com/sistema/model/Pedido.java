@@ -73,3 +73,23 @@ public final class Pedido {
                     .mapToDouble(ItemPedido::getSubtotal)
                     .sum();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido ID: ").append(id)
+          .append(" | Cliente: ").append(cliente.getNome())
+          .append(" | Status: ").append(status)
+          .append(" | Total: R$ ").append(String.format("%.2f", getTotalPedido()))
+          .append("\n  Itens:");
+        
+        if (itens.isEmpty()) {
+            sb.append(" (Nenhum item adicionado)");
+        } else {
+            for (ItemPedido item : itens) {
+                sb.append("\n    - ").append(item.toString());
+            }
+        }
+        return sb.toString();
+    }
+}
