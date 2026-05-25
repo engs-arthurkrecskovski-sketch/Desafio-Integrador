@@ -23,3 +23,14 @@ public final class Pedido {
         this.status = StatusPedido.ABERTO;
         this.criadoEm = LocalDateTime.now();
     }
+
+    public Pedido(long id, Cliente cliente, List<ItemPedido> itens, StatusPedido status, LocalDateTime criadoEm) {
+        if (cliente == null) {
+            throw new IllegalArgumentException("Cliente não pode ser nulo.");
+        }
+        if (status == null) {
+            throw new IllegalArgumentException("Status do pedido não pode ser nulo.");
+        }
+        if (criadoEm == null) {
+            throw new IllegalArgumentException("Data de criação não pode ser nula.");
+        }
