@@ -37,3 +37,8 @@ public final class ItemPedido {
         return this.quantidade * this.precoUnitario;
     }
     
+    @Override
+    public String toString() {
+        return produto.getNome() + " x" + quantidade + " (Subtotal: R$ " + String.format("%.2f", getSubtotal()) + ")";
+    }
+}
