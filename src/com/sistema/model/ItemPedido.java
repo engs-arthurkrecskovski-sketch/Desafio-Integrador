@@ -32,3 +32,8 @@ public final class ItemPedido {
     public Produto getProduto() { return produto; }
     public int getQuantidade() { return quantidade; }
     public double getPrecoUnitario() { return precoUnitario; }
+
+    public double getSubtotal() {
+        return this.quantidade * this.precoUnitario;
+    }
+    
