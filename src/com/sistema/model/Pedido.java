@@ -34,3 +34,10 @@ public final class Pedido {
         if (criadoEm == null) {
             throw new IllegalArgumentException("Data de criação não pode ser nula.");
         }
+
+        this.id = id;
+        this.cliente = cliente;
+        this.itens = (itens != null) ? new ArrayList<>(itens) : new ArrayList<>();
+        this.status = status;
+        this.criadoEm = criadoEm;
+    }
