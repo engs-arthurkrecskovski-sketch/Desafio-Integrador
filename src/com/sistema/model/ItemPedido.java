@@ -27,3 +27,8 @@ public final class ItemPedido {
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
     }
+
+    public long getId() { return id; }
+    public Produto getProduto() { return produto; }
+    public int getQuantidade() { return quantidade; }
+    public double getPrecoUnitario() { return precoUnitario; }
