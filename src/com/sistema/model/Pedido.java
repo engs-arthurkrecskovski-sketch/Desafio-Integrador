@@ -60,3 +60,10 @@ public final class Pedido {
         }
         this.itens.add(item);
     }
+
+    public void atualizarStatus(StatusPedido novoStatus) {
+        if (novoStatus == null) {
+            throw new IllegalArgumentException("O novo status não pode ser nulo.");
+        }
+        this.status = novoStatus;
+    }
