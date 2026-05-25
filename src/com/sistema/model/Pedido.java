@@ -67,3 +67,9 @@ public final class Pedido {
         }
         this.status = novoStatus;
     }
+
+    public double getTotalPedido() {
+        return itens.stream()
+                    .mapToDouble(ItemPedido::getSubtotal)
+                    .sum();
+    }
