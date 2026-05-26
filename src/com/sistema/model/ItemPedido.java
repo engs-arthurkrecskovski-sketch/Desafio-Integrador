@@ -7,8 +7,8 @@ public final class ItemPedido {
     private final int quantidade;
     private final double precoUnitario;
 
-    public ItemPedido(Produto produto, int quantidade) {
-        this(0L, produto, quantidade, produto.getPreco());
+   public ItemPedido(Produto produto, int quantidade) {
+        this(0L, 0L, produto, quantidade, produto.getPreco());
     }
 
     public ItemPedido(long id, Produto produto, int quantidade, double precoUnitario) {
