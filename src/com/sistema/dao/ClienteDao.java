@@ -20,3 +20,7 @@ public Cliente salvar(Cliente cliente) throws SQLException {
 
     try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getEmail());
+            ps.executeUpdate();
