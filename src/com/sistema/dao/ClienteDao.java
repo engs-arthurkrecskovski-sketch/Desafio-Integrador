@@ -24,3 +24,8 @@ public Cliente salvar(Cliente cliente) throws SQLException {
             ps.setString(1, cliente.getNome());
             ps.setString(2, cliente.getEmail());
             ps.executeUpdate();
+
+            ResultSet keys = ps.getGeneratedKeys();
+            if (keys.next()) {
+                return new Cliente(keys.getLong(1), cliente.getNome(), cliente.getEmail(), LocalDateTime.now());
+            }
