@@ -41,3 +41,13 @@ public class ItemPedidoDAO {
         return lista;
     }
 
+     private ItemPedido mapear(ResultSet rs) throws SQLException {
+        Produto produto = new Produto(
+            rs.getLong("produto_id"),
+            rs.getString("nome"),
+            rs.getBigDecimal("preco"),
+            rs.getInt("quantidade_estoque"),
+            Categoria.fromString(rs.getString("categoria")),
+            rs.getTimestamp("criado_em").toLocalDateTime()
+        );
+
