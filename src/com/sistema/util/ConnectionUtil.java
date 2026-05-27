@@ -6,3 +6,10 @@ import java.sql.SQLException;
 
 public final class ConnectionUtil {
 }
+   
+private static final String URL =
+        "jdbc:mysql://localhost:3306/sistema_pedidos?useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true";
+    private static final String USER = "root";
+    private static final String PASS = "root";
+
+    private ConnectionUtil() {}
