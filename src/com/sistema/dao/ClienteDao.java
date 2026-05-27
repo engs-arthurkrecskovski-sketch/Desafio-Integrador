@@ -64,3 +64,11 @@ public Cliente salvar(Cliente cliente) throws SQLException {
         String sql = "SELECT id, nome, email, criado_em FROM clientes ORDER BY nome";
         List<Cliente> lista = new ArrayList<>();
     }
+
+    try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) lista.add(mapear(rs));
+        }
+        return lista;
