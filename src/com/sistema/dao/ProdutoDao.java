@@ -58,3 +58,7 @@ public class ProdutoDAO {
         }
         return lista;
     }
+
+     public List<Produto> listarPorCategoria(Categoria categoria) throws SQLException {
+        String sql = "SELECT id, nome, preco, quantidade_estoque, categoria, criado_em FROM produtos WHERE categoria = ? ORDER BY nome";
+        List<Produto> lista = new ArrayList<>();
