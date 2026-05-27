@@ -76,3 +76,12 @@ public Cliente salvar(Cliente cliente) throws SQLException {
         public boolean atualizar(Cliente cliente) throws SQLException {
         String sql = "UPDATE clientes SET nome = ?, email = ? WHERE id = ?";
     }
+
+    try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getEmail());
+            ps.setLong(3, cliente.getId());
+            return ps.executeUpdate() > 0;
+        }
