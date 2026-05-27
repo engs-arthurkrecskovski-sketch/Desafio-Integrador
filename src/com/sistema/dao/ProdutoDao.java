@@ -9,3 +9,26 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+public class ProdutoDAO {
+
+    public Produto salvar(Produto produto) throws SQLException {
+        String sql = "INSERT INTO produtos (nome, preco, quantidade_estoque, categoria) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, produto.getNome());
+            ps.setBigDecimal(2, produto.getPreco());
+            ps.setInt(3, produto.getQuantidadeEstoque());
+            ps.setString(4, produto.getCategoria().name());
+            ps.executeUpdate();
+
+            ResultSet keys = ps.getGeneratedKeys();
+            if (keys.next()) {
+                return new Produto(keys.getLong(1), produto.getNome(), produto.getPreco(),
+                        produto.getQuantidadeEstoque(), produto.getCategoria(), LocalDateTime.now());
+            }
+        }
+        throw new SQLException("Erro ao salvar produto.");
+    }
