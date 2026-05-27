@@ -89,3 +89,10 @@ public Cliente salvar(Cliente cliente) throws SQLException {
         public boolean deletar(long id) throws SQLException {
         String sql = "DELETE FROM clientes WHERE id = ?";
     }
+
+    try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, id);
+            return ps.executeUpdate() > 0;
+        }
