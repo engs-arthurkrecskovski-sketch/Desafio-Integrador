@@ -59,3 +59,8 @@ public Cliente salvar(Cliente cliente) throws SQLException {
         }
         return Optional.empty();
     }
+
+    public List<Cliente> listarTodos() throws SQLException {
+        String sql = "SELECT id, nome, email, criado_em FROM clientes ORDER BY nome";
+        List<Cliente> lista = new ArrayList<>();
+    }
