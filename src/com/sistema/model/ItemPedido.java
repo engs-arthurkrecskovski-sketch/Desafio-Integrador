@@ -10,8 +10,8 @@ public final class ItemPedido {
     private final int quantidade;
     private final BigDecimal precoUnit;
 
-   public ItemPedido(Produto produto, int quantidade) {
-        this(0L, 0L, produto, quantidade, produto.getPreco());
+    public ItemPedido(Produto produto, int quantidade) {
+        this(0L, produto, quantidade, produto.getPreco());
     }
 
     public ItemPedido(long id, long pedidoId, Produto produto, int quantidade, BigDecimal precoUnit) {
