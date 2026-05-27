@@ -72,3 +72,6 @@ public class ProdutoDAO {
         }
         return lista;
     }
+
+    public boolean atualizar(Produto produto) throws SQLException {
+        String sql = "UPDATE produtos SET nome = ?, preco = ?, quantidade_estoque = ?, categoria = ? WHERE id = ?";
