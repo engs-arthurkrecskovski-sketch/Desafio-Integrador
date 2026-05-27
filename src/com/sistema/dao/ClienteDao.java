@@ -32,3 +32,6 @@ public Cliente salvar(Cliente cliente) throws SQLException {
 
             }
         throw new SQLException("Erro ao salvar cliente.");
+
+        public Optional<Cliente> buscarPorId(long id) throws SQLException {
+    }
