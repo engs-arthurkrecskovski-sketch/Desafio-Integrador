@@ -46,3 +46,16 @@ public Cliente salvar(Cliente cliente) throws SQLException {
             if (rs.next()) return Optional.of(mapear(rs));
         }
         return Optional.empty();
+
+        public Optional<Cliente> buscarPorEmail(String email) throws SQLException {
+        String sql = "SELECT id, nome, email, criado_em FROM clientes WHERE email = ?";
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return Optional.of(mapear(rs));
+        }
+        return Optional.empty();
+    }
