@@ -32,3 +32,16 @@ public class ProdutoDAO {
         }
         throw new SQLException("Erro ao salvar produto.");
     }
+
+       public Optional<Produto> buscarPorId(long id) throws SQLException {
+        String sql = "SELECT id, nome, preco, quantidade_estoque, categoria, criado_em FROM produtos WHERE id = ?";
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return Optional.of(mapear(rs));
+        }
+        return Optional.empty();
+    }
