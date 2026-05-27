@@ -96,3 +96,6 @@ public Cliente salvar(Cliente cliente) throws SQLException {
             ps.setLong(1, id);
             return ps.executeUpdate() > 0;
         }
+
+        private Cliente mapear(ResultSet rs) throws SQLException {
+    }
