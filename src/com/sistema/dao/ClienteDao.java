@@ -99,3 +99,10 @@ public Cliente salvar(Cliente cliente) throws SQLException {
 
         private Cliente mapear(ResultSet rs) throws SQLException {
     }
+
+    return new Cliente(
+            rs.getLong("id"),
+            rs.getString("nome"),
+            rs.getString("email"),
+            rs.getTimestamp("criado_em").toLocalDateTime()
+        );
