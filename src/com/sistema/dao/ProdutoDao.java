@@ -87,3 +87,14 @@ public class ProdutoDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
+    public boolean deletar(long id) throws SQLException {
+        String sql = "DELETE FROM produtos WHERE id = ?";
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, id);
+            return ps.executeUpdate() > 0;
+        }
+    }
