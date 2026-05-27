@@ -23,4 +23,9 @@ public class ItemPedidoDAO {
         }
     }
 
-    
+    public List<ItemPedido> listarPorPedido(long pedidoId) throws SQLException {
+        String sql = "SELECT ip.id, ip.pedido_id, ip.produto_id, ip.quantidade, ip.preco_unit, " +
+                     "p.nome, p.preco, p.quantidade_estoque, p.categoria, p.criado_em " +
+                     "FROM itens_pedido ip JOIN produtos p ON p.id = ip.produto_id " +
+                     "WHERE ip.pedido_id = ?";
+
