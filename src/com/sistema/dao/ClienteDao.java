@@ -1,9 +1,5 @@
 package com.sistema.dao;
 
-public class ClienteDAO {
-
-}
-
 import com.sistema.model.Cliente;
 import com.sistema.util.ConnectionUtil;
 
@@ -13,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public Cliente salvar(Cliente cliente) throws SQLException {
-    }
+public class ClienteDAO {
 
-    String sql = "INSERT INTO clientes (nome, email) VALUES (?, ?)";
+    public Cliente salvar(Cliente cliente) throws SQLException {
+        String sql = "INSERT INTO clientes (nome, email) VALUES (?, ?)";
 
-    try (Connection conn = ConnectionUtil.getConnection();
+        try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, cliente.getNome());
@@ -29,25 +25,24 @@ public Cliente salvar(Cliente cliente) throws SQLException {
             if (keys.next()) {
                 return new Cliente(keys.getLong(1), cliente.getNome(), cliente.getEmail(), LocalDateTime.now());
             }
-
-            }
+        }
         throw new SQLException("Erro ao salvar cliente.");
-
-        public Optional<Cliente> buscarPorId(long id) throws SQLException {
     }
 
-    String sql = "SELECT id, nome, email, criado_em FROM clientes WHERE id = ?";
+    public Optional<Cliente> buscarPorId(long id) throws SQLException {
+        String sql = "SELECT id, nome, email, criado_em FROM clientes WHERE id = ?";
 
         try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-                ps.setLong(1, id);
+            ps.setLong(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) return Optional.of(mapear(rs));
         }
         return Optional.empty();
+    }
 
-        public Optional<Cliente> buscarPorEmail(String email) throws SQLException {
+    public Optional<Cliente> buscarPorEmail(String email) throws SQLException {
         String sql = "SELECT id, nome, email, criado_em FROM clientes WHERE email = ?";
 
         try (Connection conn = ConnectionUtil.getConnection();
@@ -63,21 +58,20 @@ public Cliente salvar(Cliente cliente) throws SQLException {
     public List<Cliente> listarTodos() throws SQLException {
         String sql = "SELECT id, nome, email, criado_em FROM clientes ORDER BY nome";
         List<Cliente> lista = new ArrayList<>();
-    }
 
-    try (Connection conn = ConnectionUtil.getConnection();
+        try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) lista.add(mapear(rs));
         }
         return lista;
-
-        public boolean atualizar(Cliente cliente) throws SQLException {
-        String sql = "UPDATE clientes SET nome = ?, email = ? WHERE id = ?";
     }
 
-    try (Connection conn = ConnectionUtil.getConnection();
+    public boolean atualizar(Cliente cliente) throws SQLException {
+        String sql = "UPDATE clientes SET nome = ?, email = ? WHERE id = ?";
+
+        try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, cliente.getNome());
@@ -85,24 +79,25 @@ public Cliente salvar(Cliente cliente) throws SQLException {
             ps.setLong(3, cliente.getId());
             return ps.executeUpdate() > 0;
         }
-
-        public boolean deletar(long id) throws SQLException {
-        String sql = "DELETE FROM clientes WHERE id = ?";
     }
 
-    try (Connection conn = ConnectionUtil.getConnection();
+    public boolean deletar(long id) throws SQLException {
+        String sql = "DELETE FROM clientes WHERE id = ?";
+
+        try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setLong(1, id);
             return ps.executeUpdate() > 0;
         }
-
-        private Cliente mapear(ResultSet rs) throws SQLException {
     }
 
-    return new Cliente(
+    private Cliente mapear(ResultSet rs) throws SQLException {
+        return new Cliente(
             rs.getLong("id"),
             rs.getString("nome"),
             rs.getString("email"),
             rs.getTimestamp("criado_em").toLocalDateTime()
         );
+    }
+}
