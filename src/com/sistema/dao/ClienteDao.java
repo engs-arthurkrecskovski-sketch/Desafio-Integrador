@@ -40,3 +40,9 @@ public Cliente salvar(Cliente cliente) throws SQLException {
 
         try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return Optional.of(mapear(rs));
+        }
+        return Optional.empty();
