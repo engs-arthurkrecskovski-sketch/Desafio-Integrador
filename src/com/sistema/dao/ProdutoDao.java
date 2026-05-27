@@ -110,3 +110,15 @@ public class ProdutoDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
+    private Produto mapear(ResultSet rs) throws SQLException {
+        return new Produto(
+            rs.getLong("id"),
+            rs.getString("nome"),
+            rs.getBigDecimal("preco"),
+            rs.getInt("quantidade_estoque"),
+            Categoria.fromString(rs.getString("categoria")),
+            rs.getTimestamp("criado_em").toLocalDateTime()
+        );
+    }
+}
