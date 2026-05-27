@@ -50,4 +50,13 @@ public class ItemPedidoDAO {
             Categoria.fromString(rs.getString("categoria")),
             rs.getTimestamp("criado_em").toLocalDateTime()
         );
+         return new ItemPedido(
+            rs.getLong("id"),
+            rs.getLong("pedido_id"),
+            produto,
+            rs.getInt("quantidade"),
+            rs.getBigDecimal("preco_unit")
+        );
+    }
+}
 
