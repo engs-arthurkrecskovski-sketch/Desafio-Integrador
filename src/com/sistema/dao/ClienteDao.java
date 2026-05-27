@@ -35,3 +35,8 @@ public Cliente salvar(Cliente cliente) throws SQLException {
 
         public Optional<Cliente> buscarPorId(long id) throws SQLException {
     }
+
+    String sql = "SELECT id, nome, email, criado_em FROM clientes WHERE id = ?";
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
