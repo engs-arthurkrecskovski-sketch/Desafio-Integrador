@@ -29,3 +29,6 @@ public Cliente salvar(Cliente cliente) throws SQLException {
             if (keys.next()) {
                 return new Cliente(keys.getLong(1), cliente.getNome(), cliente.getEmail(), LocalDateTime.now());
             }
+
+            }
+        throw new SQLException("Erro ao salvar cliente.");
