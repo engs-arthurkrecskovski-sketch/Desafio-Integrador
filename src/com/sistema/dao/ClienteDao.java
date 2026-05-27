@@ -15,3 +15,5 @@ import java.util.Optional;
 
 public Cliente salvar(Cliente cliente) throws SQLException {
     }
+
+    String sql = "INSERT INTO clientes (nome, email) VALUES (?, ?)";
