@@ -98,3 +98,7 @@ public class ProdutoDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
+    public boolean decrementarEstoque(Connection conn, long produtoId, int quantidade) throws SQLException {
+        String sql = "UPDATE produtos SET quantidade_estoque = quantidade_estoque - ? " +
+                     "WHERE id = ? AND quantidade_estoque >= ?";
