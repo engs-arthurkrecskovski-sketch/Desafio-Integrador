@@ -45,3 +45,16 @@ public class ProdutoDAO {
         }
         return Optional.empty();
     }
+
+    public List<Produto> listarTodos() throws SQLException {
+        String sql = "SELECT id, nome, preco, quantidade_estoque, categoria, criado_em FROM produtos ORDER BY categoria, nome";
+        List<Produto> lista = new ArrayList<>();
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) lista.add(mapear(rs));
+        }
+        return lista;
+    }
