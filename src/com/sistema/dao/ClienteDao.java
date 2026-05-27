@@ -85,3 +85,7 @@ public Cliente salvar(Cliente cliente) throws SQLException {
             ps.setLong(3, cliente.getId());
             return ps.executeUpdate() > 0;
         }
+
+        public boolean deletar(long id) throws SQLException {
+        String sql = "DELETE FROM clientes WHERE id = ?";
+    }
