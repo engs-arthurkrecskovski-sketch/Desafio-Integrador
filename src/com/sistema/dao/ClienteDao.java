@@ -17,3 +17,6 @@ public Cliente salvar(Cliente cliente) throws SQLException {
     }
 
     String sql = "INSERT INTO clientes (nome, email) VALUES (?, ?)";
+
+    try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
