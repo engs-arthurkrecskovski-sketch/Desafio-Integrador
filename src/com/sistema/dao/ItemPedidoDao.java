@@ -29,3 +29,15 @@ public class ItemPedidoDAO {
                      "FROM itens_pedido ip JOIN produtos p ON p.id = ip.produto_id " +
                      "WHERE ip.pedido_id = ?";
 
+        List<ItemPedido> lista = new ArrayList<>();
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, pedidoId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) lista.add(mapear(rs));
+        }
+        return lista;
+    }
+
