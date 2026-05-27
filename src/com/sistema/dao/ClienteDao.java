@@ -72,3 +72,7 @@ public Cliente salvar(Cliente cliente) throws SQLException {
             while (rs.next()) lista.add(mapear(rs));
         }
         return lista;
+
+        public boolean atualizar(Cliente cliente) throws SQLException {
+        String sql = "UPDATE clientes SET nome = ?, email = ? WHERE id = ?";
+    }
