@@ -62,3 +62,13 @@ public class ProdutoDAO {
      public List<Produto> listarPorCategoria(Categoria categoria) throws SQLException {
         String sql = "SELECT id, nome, preco, quantidade_estoque, categoria, criado_em FROM produtos WHERE categoria = ? ORDER BY nome";
         List<Produto> lista = new ArrayList<>();
+
+         try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, categoria.name());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) lista.add(mapear(rs));
+        }
+        return lista;
+    }
