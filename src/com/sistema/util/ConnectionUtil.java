@@ -13,3 +13,8 @@ private static final String URL =
     private static final String PASS = "root";
 
     private ConnectionUtil() {}
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASS);
+    }
+
