@@ -145,3 +145,12 @@ public class PedidoDAO {
         }
         return -1L;
     }
+
+        public boolean finalizarPedido(Connection conn, long pedidoId) throws SQLException {
+        String sql = "UPDATE pedidos SET status = 'FINALIZADO' WHERE id = ? AND status = 'PROCESSANDO'";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, pedidoId);
+            return ps.executeUpdate() > 0;
+        }
+    }
