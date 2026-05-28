@@ -61,3 +61,17 @@ public class PedidoDAO {
         String sql = "SELECT p.id, p.cliente_id, p.status, p.criado_em, " +
                      "c.nome, c.email, c.criado_em AS cli_criado " +
                      "FROM pedidos p JOIN clientes c ON c.id = p.cliente_id WHERE p.id = ?";
+
+    try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Pedido base = mapear(rs);
+                List<ItemPedido> itens = itemPedidoDAO.listarPorPedido(base.getId());
+                return Optional.of(new Pedido(base.getId(), base.getCliente(), base.getStatus(), base.getCriadoEm(), itens));
+            }
+        }
+        return Optional.empty();
+    }
