@@ -21,3 +21,13 @@ public class PedidoDAO {
             conn.setAutoCommit(false);
             try {
                 long pedidoId;
+
+                try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                    ps.setLong(1, pedido.getCliente().getId());
+                    ps.setString(2, pedido.getStatus().name());
+                    ps.executeUpdate();
+
+                    ResultSet keys = ps.getGeneratedKeys();
+                    if (!keys.next()) throw new SQLException("Erro ao gerar ID do pedido.");
+                    pedidoId = keys.getLong(1);
+                }
