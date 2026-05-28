@@ -47,3 +47,12 @@ public class PedidoDAO {
 
                 List<ItemPedido> itensSalvos = itemPedidoDAO.listarPorPedido(pedidoId);
                 return new Pedido(pedidoId, pedido.getCliente(), pedido.getStatus(), pedido.getCriadoEm(), itensSalvos);
+
+                            } catch (Exception e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
+        }
+    }
