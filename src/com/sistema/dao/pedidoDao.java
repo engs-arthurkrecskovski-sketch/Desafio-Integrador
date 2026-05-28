@@ -133,3 +133,15 @@ public class PedidoDAO {
     public long reservarProximoPedidoDaFila(Connection conn) throws SQLException {
         String sqlUpdate = "UPDATE pedidos SET status = 'PROCESSANDO' " +
                            "WHERE id = (SELECT id FROM (SELECT id FROM pedidos WHERE status = 'FILA' ORDER BY criado_em LIMIT 1) AS sub)";
+
+                                   try (PreparedStatement ps = conn.prepareStatement(sqlUpdate)) {
+            if (ps.executeUpdate() == 0) return -1L;
+        }
+
+        String sqlSelect = "SELECT id FROM pedidos WHERE status = 'PROCESSANDO' ORDER BY criado_em LIMIT 1";
+        try (PreparedStatement ps = conn.prepareStatement(sqlSelect);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getLong("id");
+        }
+        return -1L;
+    }
