@@ -129,3 +129,7 @@ public class PedidoDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
+    public long reservarProximoPedidoDaFila(Connection conn) throws SQLException {
+        String sqlUpdate = "UPDATE pedidos SET status = 'PROCESSANDO' " +
+                           "WHERE id = (SELECT id FROM (SELECT id FROM pedidos WHERE status = 'FILA' ORDER BY criado_em LIMIT 1) AS sub)";
