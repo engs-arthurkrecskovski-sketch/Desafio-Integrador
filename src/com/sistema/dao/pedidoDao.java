@@ -103,3 +103,17 @@ public class PedidoDAO {
                      "WHERE p.cliente_id = ? ORDER BY p.criado_em DESC";
 
         List<Pedido> lista = new ArrayList<>();
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setLong(1, clienteId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Pedido base = mapear(rs);
+                List<ItemPedido> itens = itemPedidoDAO.listarPorPedido(base.getId());
+                lista.add(new Pedido(base.getId(), base.getCliente(), base.getStatus(), base.getCriadoEm(), itens));
+            }
+        }
+        return lista;
+    }
