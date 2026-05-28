@@ -154,3 +154,11 @@ public class PedidoDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
+    private Pedido mapear(ResultSet rs) throws SQLException {
+        Cliente cliente = new Cliente(
+            rs.getLong("cliente_id"),
+            rs.getString("nome"),
+            rs.getString("email"),
+            rs.getTimestamp("cli_criado").toLocalDateTime()
+        );
