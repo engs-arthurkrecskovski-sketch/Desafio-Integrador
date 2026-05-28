@@ -162,3 +162,12 @@ public class PedidoDAO {
             rs.getString("email"),
             rs.getTimestamp("cli_criado").toLocalDateTime()
         );
+
+                return new Pedido(
+            rs.getLong("id"),
+            cliente,
+            StatusPedido.fromString(rs.getString("status")),
+            rs.getTimestamp("criado_em").toLocalDateTime(),
+            new ArrayList<>()
+        );
+    }
