@@ -42,3 +42,8 @@ public class PedidoDAO {
                     }
                     itemPedidoDAO.salvar(conn, pedidoId, item);
                 }
+
+                                conn.commit();
+
+                List<ItemPedido> itensSalvos = itemPedidoDAO.listarPorPedido(pedidoId);
+                return new Pedido(pedidoId, pedido.getCliente(), pedido.getStatus(), pedido.getCriadoEm(), itensSalvos);
