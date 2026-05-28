@@ -117,3 +117,15 @@ public class PedidoDAO {
         }
         return lista;
     }
+
+        public boolean atualizarStatus(long pedidoId, StatusPedido status) throws SQLException {
+        String sql = "UPDATE pedidos SET status = ? WHERE id = ?";
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, status.name());
+            ps.setLong(2, pedidoId);
+            return ps.executeUpdate() > 0;
+        }
+    }
