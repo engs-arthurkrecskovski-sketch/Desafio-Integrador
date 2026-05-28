@@ -16,3 +16,8 @@ public class PedidoDAO {
 
         public Pedido salvar(Pedido pedido) throws SQLException {
         String sql = "INSERT INTO pedidos (cliente_id, status) VALUES (?, ?)";
+
+        try (Connection conn = ConnectionUtil.getConnection()) {
+            conn.setAutoCommit(false);
+            try {
+                long pedidoId;
