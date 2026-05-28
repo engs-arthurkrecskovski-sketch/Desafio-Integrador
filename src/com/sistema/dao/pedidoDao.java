@@ -95,3 +95,11 @@ public class PedidoDAO {
         }
         return lista;
     }
+
+    public List<Pedido> listarPorCliente(long clienteId) throws SQLException {
+        String sql = "SELECT p.id, p.cliente_id, p.status, p.criado_em, " +
+                     "c.nome, c.email, c.criado_em AS cli_criado " +
+                     "FROM pedidos p JOIN clientes c ON c.id = p.cliente_id " +
+                     "WHERE p.cliente_id = ? ORDER BY p.criado_em DESC";
+
+        List<Pedido> lista = new ArrayList<>();
