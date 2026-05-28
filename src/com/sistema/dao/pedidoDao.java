@@ -13,3 +13,6 @@ public class PedidoDAO {
     private final ClienteDAO clienteDAO = new ClienteDAO();
     private final ItemPedidoDAO itemPedidoDAO = new ItemPedidoDAO();
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+
+        public Pedido salvar(Pedido pedido) throws SQLException {
+        String sql = "INSERT INTO pedidos (cliente_id, status) VALUES (?, ?)";
