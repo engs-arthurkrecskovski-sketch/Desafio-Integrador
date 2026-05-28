@@ -31,3 +31,14 @@ public class PedidoDAO {
                     if (!keys.next()) throw new SQLException("Erro ao gerar ID do pedido.");
                     pedidoId = keys.getLong(1);
                 }
+
+                                for (ItemPedido item : pedido.getItens()) {
+                    boolean ok = produtoDAO.decrementarEstoque(conn, item.getProduto().getId(), item.getQuantidade());
+                    if (!ok) {
+                        throw new EstoqueInsuficienteException(
+                                item.getProduto().getNome(),
+                                item.getQuantidade(),
+                                item.getProduto().getQuantidadeEstoque());
+                    }
+                    itemPedidoDAO.salvar(conn, pedidoId, item);
+                }
