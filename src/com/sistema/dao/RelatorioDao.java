@@ -22,5 +22,7 @@ public class RelatorioDAO {
             try (Connection conn = ConnectionUtil.getConnection();
      PreparedStatement ps = conn.prepareStatement(sql)) {
 
+        ps.setInt(1, limite);
+
 
 }
