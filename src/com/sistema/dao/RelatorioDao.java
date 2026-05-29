@@ -25,4 +25,17 @@ public class RelatorioDAO {
         ps.setInt(1, limite);
         ResultSet rs = ps.executeQuery();
 
+         linhas.add(String.format("%-30s %15s %15s", "Cliente", "Pedidos", "Total (R$)"));
+            linhas.add("-".repeat(62));
+            while (rs.next()) {
+                linhas.add(String.format("%-30s %15d %15.2f",
+                        rs.getString("nome"),
+                        rs.getInt("total_pedidos"),
+                        rs.getDouble("valor_total")));
+            }
+        }
+        return linhas;
+    }
+
+
 }
