@@ -17,4 +17,7 @@ public class RelatorioDAO {
             "WHERE p.status = 'FINALIZADO' " +
             "GROUP BY c.id, c.nome ORDER BY valor_total DESC LIMIT ?";
 
+            List<String> linhas = new ArrayList<>();
+
+
 }
