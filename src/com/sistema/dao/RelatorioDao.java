@@ -12,5 +12,6 @@ public class RelatorioDAO {
         String sql = "SELECT c.nome, COUNT(p.id) AS total_pedidos, " +
             "SUM(ip.quantidade * ip.preco_unit) AS valor_total " +
             "FROM clientes c " +
-
+            "JOIN pedidos p ON p.cliente_id = c.id " +
+            "JOIN itens_pedido ip ON ip.pedido_id = p.id " +
 }
