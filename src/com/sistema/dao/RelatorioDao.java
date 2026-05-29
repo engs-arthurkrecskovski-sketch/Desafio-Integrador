@@ -19,5 +19,8 @@ public class RelatorioDAO {
 
             List<String> linhas = new ArrayList<>();
 
+            try (Connection conn = ConnectionUtil.getConnection();
+     PreparedStatement ps = conn.prepareStatement(sql)) {
+
 
 }
