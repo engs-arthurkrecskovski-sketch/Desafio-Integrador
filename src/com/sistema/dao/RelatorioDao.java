@@ -23,6 +23,6 @@ public class RelatorioDAO {
      PreparedStatement ps = conn.prepareStatement(sql)) {
 
         ps.setInt(1, limite);
-
+        ResultSet rs = ps.executeQuery();
 
 }
