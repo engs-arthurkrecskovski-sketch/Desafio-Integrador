@@ -37,5 +37,14 @@ public class RelatorioDAO {
         return linhas;
     }
 
+    public List<String> relatorioProdutosMaisVendidos(int limite) throws SQLException {
+        String sql = "SELECT pr.nome, pr.categoria, " +
+                     "SUM(ip.quantidade) AS qtd_vendida, " +
+                     "SUM(ip.quantidade * ip.preco_unit) AS receita " +
+                     "FROM produtos pr " +
+                     "JOIN itens_pedido ip ON ip.produto_id = pr.id " +
+                     "JOIN pedidos p ON p.id = ip.pedido_id " +
+                     "WHERE p.status = 'FINALIZADO' " +
+                     "GROUP BY pr.id, pr.nome, pr.categoria ORDER BY qtd_vendida DESC LIMIT ?";
 
 }
