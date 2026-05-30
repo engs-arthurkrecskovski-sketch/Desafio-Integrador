@@ -38,4 +38,10 @@ public class ProdutoService {
         return atualizado;
     }
     
+    
+    public void deletar(long id) throws SQLException {
+        buscarPorId(id);
+        produtoDAO.deletar(id);
+    }
+
 }
