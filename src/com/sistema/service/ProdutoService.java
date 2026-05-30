@@ -49,4 +49,7 @@ public class ProdutoService {
             throw new ValidacaoException("Nome do produto nao pode ser vazio.");
                 if (preco == null || preco.compareTo(BigDecimal.ZERO) <= 0)
             throw new ValidacaoException("Preco deve ser positivo.");
+                if (qtdEstoque < 0)
+            throw new ValidacaoException("Estoque nao pode ser negativo.");
+    }
 }
