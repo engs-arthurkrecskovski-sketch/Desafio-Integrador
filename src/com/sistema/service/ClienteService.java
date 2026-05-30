@@ -34,6 +34,15 @@ public class ClienteService {
     }
 
     public Cliente atualizar(long id,
-                         String novoNome,
-                         String novoEmail) throws SQLException {
+        String novoNome,
+        String novoEmail) throws SQLException {
+        buscarPorId(id);
+        validarNome(novoNome);
+        validarEmail(novoEmail);
+        verificarEmailUnico(novoEmail, id);
+        Cliente atualizado = new Cliente(id, novoNome.trim(), novoEmail.trim().toLowerCase(),
+                java.time.LocalDateTime.now());
+        clienteDAO.atualizar(atualizado);
+        return atualizado;
+    }
 }
