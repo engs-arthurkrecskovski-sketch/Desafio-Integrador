@@ -75,4 +75,14 @@ public class RelatorioDAO {
                      "ON sub.pedido_id = p.id " +
                      "GROUP BY p.status " +
                      "ORDER BY FIELD(p.status, 'ABERTO', 'FILA', 'PROCESSANDO', 'FINALIZADO')";
+        
+            List<String> linhas = new ArrayList<>();
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+
+            }
         }
+ }
