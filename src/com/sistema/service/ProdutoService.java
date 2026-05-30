@@ -29,6 +29,13 @@ public class ProdutoService {
         public List<Produto> listarPorCategoria(Categoria categoria) throws SQLException {
         return produtoDAO.listarPorCategoria(categoria);
     }
-    
 
+       public Produto atualizar(long id, String nome, BigDecimal preco, int qtdEstoque, Categoria categoria) throws SQLException {
+        buscarPorId(id);
+        validar(nome, preco, qtdEstoque);
+        Produto atualizado = new Produto(id, nome.trim(), preco, qtdEstoque, categoria, java.time.LocalDateTime.now());
+        produtoDAO.atualizar(atualizado);
+        return atualizado;
+    }
+    
 }
