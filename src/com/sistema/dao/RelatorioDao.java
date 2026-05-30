@@ -82,7 +82,15 @@ public class RelatorioDAO {
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
-
+            linhas.add(String.format("%-15s %10s %20s", "Status", "Pedidos", "Ticket Medio (R$)"));
+            linhas.add("-".repeat(48));
+            while (rs.next()) {
+                linhas.add(String.format("%-15s %10d %20.2f",
+                        rs.getString("status"),
+                        rs.getInt("quantidade"),
+                        rs.getDouble("ticket_medio")));
             }
         }
- }
+        return linhas;
+    }
+
