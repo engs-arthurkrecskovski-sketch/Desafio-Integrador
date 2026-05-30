@@ -28,4 +28,8 @@ public class ClienteService {
         return clienteDAO.buscarPorId(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Cliente", id));
     }
+
+        public List<Cliente> listarTodos() throws SQLException {
+        return clienteDAO.listarTodos();
+    }
 }
