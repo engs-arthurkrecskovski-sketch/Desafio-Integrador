@@ -57,4 +57,11 @@ public class ClienteService {
         if (nome.trim().length() < 2)
             throw new ValidacaoException("Nome deve ter ao menos 2 caracteres.");
     }
+
+       private void validarEmail(String email) {
+        if (email == null || email.trim().isEmpty())
+            throw new ValidacaoException("E-mail nao pode ser vazio.");
+        if (!REGEX_EMAIL.matcher(email.trim()).matches())
+            throw new EmailInvalidoException(email);
+    }
 }
