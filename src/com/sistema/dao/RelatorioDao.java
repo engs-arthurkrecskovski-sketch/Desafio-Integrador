@@ -67,3 +67,12 @@ public class RelatorioDAO {
         }
         return linhas;
     }
+
+        public List<String> relatorioPedidosporStatus() throws SQLException {
+            String sql =  "SELECT p.status, COUNT(p.id) AS quantidade, AVG(sub.total) AS ticket_medio " +
+                     "FROM pedidos p " +
+                     "JOIN (SELECT pedido_id, SUM(quantidade * preco_unit) AS total FROM itens_pedido GROUP BY pedido_id) sub " +
+                     "ON sub.pedido_id = p.id " +
+                     "GROUP BY p.status " +
+                     "ORDER BY FIELD(p.status, 'ABERTO', 'FILA', 'PROCESSANDO', 'FINALIZADO')";
+        }
