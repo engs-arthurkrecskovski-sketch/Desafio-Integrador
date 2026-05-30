@@ -13,4 +13,8 @@ import java.util.List;
 public class ProdutoService {
     
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+        public Produto cadastrar(String nome, BigDecimal preco, int qtdEstoque, Categoria categoria) throws SQLException {
+        validar(nome, preco, qtdEstoque);
+        return produtoDAO.salvar(new Produto(nome.trim(), preco, qtdEstoque, categoria));
+    }
 }
