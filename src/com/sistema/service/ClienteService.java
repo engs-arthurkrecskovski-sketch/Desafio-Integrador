@@ -16,4 +16,11 @@ public class ClienteService {
             Pattern.compile("^[\\w.+\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z]{2,}$");
 
     private final ClienteDAO clienteDAO = new ClienteDAO();
+
+        public Cliente cadastrar(String nome, String email) throws SQLException {
+        validarNome(nome);
+        validarEmail(email);
+        verificarEmailUnico(email, 0L);
+        return clienteDAO.salvar(new Cliente(nome.trim(), email.trim().toLowerCase()));
+    }
 }
