@@ -45,5 +45,6 @@ public class ProdutoService {
     }
 
         private void validar(String nome, BigDecimal preco, int qtdEstoque) {
-
+        if (nome == null || nome.trim().isEmpty())
+            throw new ValidacaoException("Nome do produto nao pode ser vazio.");
 }
