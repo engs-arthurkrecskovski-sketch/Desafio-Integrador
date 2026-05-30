@@ -45,4 +45,9 @@ public class ClienteService {
         clienteDAO.atualizar(atualizado);
         return atualizado;
     }
+
+        public void deletar(long id) throws SQLException {
+        buscarPorId(id);
+        clienteDAO.deletar(id);
+    }
 }
