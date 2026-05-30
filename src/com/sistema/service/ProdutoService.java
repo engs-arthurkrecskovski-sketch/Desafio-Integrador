@@ -22,4 +22,9 @@ public class ProdutoService {
         return produtoDAO.buscarPorId(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Produto", id));
     }
+
+        public List<Produto> listarTodos() throws SQLException {
+        return produtoDAO.listarTodos();
+    }
+
 }
