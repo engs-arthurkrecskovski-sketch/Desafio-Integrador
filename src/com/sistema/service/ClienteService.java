@@ -23,4 +23,9 @@ public class ClienteService {
         verificarEmailUnico(email, 0L);
         return clienteDAO.salvar(new Cliente(nome.trim(), email.trim().toLowerCase()));
     }
+
+    public Cliente buscarPorId(long id) throws SQLException {
+        return clienteDAO.buscarPorId(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Cliente", id));
+    }
 }
