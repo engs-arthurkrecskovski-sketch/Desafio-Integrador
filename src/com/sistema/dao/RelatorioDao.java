@@ -98,4 +98,13 @@ public class RelatorioDAO {
             String sql = "SELECT nome, categoria, quantidade_estoque, preco FROM produtos " +
                      "WHERE quantidade_estoque <= ? ORDER BY quantidade_estoque ASC";
                     }
+
+                    List<String> linhas = new ArrayList<>();
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, limite);
+            ResultSet rs = ps.executeQuery();
+    }
 }
