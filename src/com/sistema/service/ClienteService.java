@@ -32,4 +32,8 @@ public class ClienteService {
         public List<Cliente> listarTodos() throws SQLException {
         return clienteDAO.listarTodos();
     }
+
+    public Cliente atualizar(long id,
+                         String novoNome,
+                         String novoEmail) throws SQLException {
 }
