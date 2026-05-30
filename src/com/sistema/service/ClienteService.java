@@ -64,4 +64,11 @@ public class ClienteService {
         if (!REGEX_EMAIL.matcher(email.trim()).matches())
             throw new EmailInvalidoException(email);
     }
+
+        private void verificarEmailUnico(String email, long idIgnorar) throws SQLException {
+        clienteDAO.buscarPorEmail(email.trim().toLowerCase()).ifPresent(c -> {
+            if (c.getId() != idIgnorar)
+                throw new ValidacaoException("E-mail ja cadastrado: " + email);
+        });
+    }
 }
