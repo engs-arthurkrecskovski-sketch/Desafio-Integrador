@@ -12,4 +12,5 @@ import java.util.List;
 
 public class ProdutoService {
     
+    private final ProdutoDAO produtoDAO = new ProdutoDAO();
 }
