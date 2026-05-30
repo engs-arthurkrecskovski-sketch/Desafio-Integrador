@@ -17,4 +17,9 @@ public class ProdutoService {
         validar(nome, preco, qtdEstoque);
         return produtoDAO.salvar(new Produto(nome.trim(), preco, qtdEstoque, categoria));
     }
+
+        public Produto buscarPorId(long id) throws SQLException {
+        return produtoDAO.buscarPorId(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Produto", id));
+    }
 }
