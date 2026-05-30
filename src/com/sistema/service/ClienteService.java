@@ -12,4 +12,8 @@ import java.util.regex.Pattern;
 
 public class ClienteService {
     
+        private static final Pattern REGEX_EMAIL =
+            Pattern.compile("^[\\w.+\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z]{2,}$");
+
+    private final ClienteDAO clienteDAO = new ClienteDAO();
 }
