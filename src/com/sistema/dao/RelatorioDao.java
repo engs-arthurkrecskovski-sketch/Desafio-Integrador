@@ -94,3 +94,8 @@ public class RelatorioDAO {
         return linhas;
     }
 
+        public List<String> relatorioEstoqueCritico(int limite) throws SQLException {
+            String sql = "SELECT nome, categoria, quantidade_estoque, preco FROM produtos " +
+                     "WHERE quantidade_estoque <= ? ORDER BY quantidade_estoque ASC";
+                    }
+}
