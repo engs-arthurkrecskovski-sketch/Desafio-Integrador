@@ -44,4 +44,6 @@ public class ProdutoService {
         produtoDAO.deletar(id);
     }
 
+        private void validar(String nome, BigDecimal preco, int qtdEstoque) {
+
 }
