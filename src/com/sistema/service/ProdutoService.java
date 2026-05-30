@@ -26,5 +26,9 @@ public class ProdutoService {
         public List<Produto> listarTodos() throws SQLException {
         return produtoDAO.listarTodos();
     }
+        public List<Produto> listarPorCategoria(Categoria categoria) throws SQLException {
+        return produtoDAO.listarPorCategoria(categoria);
+    }
+    
 
 }
