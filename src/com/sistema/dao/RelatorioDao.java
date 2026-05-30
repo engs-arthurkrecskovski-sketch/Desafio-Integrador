@@ -47,4 +47,23 @@ public class RelatorioDAO {
                      "WHERE p.status = 'FINALIZADO' " +
                      "GROUP BY pr.id, pr.nome, pr.categoria ORDER BY qtd_vendida DESC LIMIT ?";
 
-}
+        List<String> linhas = new ArrayList<>();
+
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                ps.setInt(1, limite);
+                ResultSet rs = ps.executeQuery();
+
+            linhas.add(String.format("%-30s %-12s %12s %15s", "Produto", "Categoria", "Qtd Vendida", "Receita (R$)"));
+            linhas.add("-".repeat(72));
+            while (rs.next()) {
+                linhas.add(String.format("%-30s %-12s %12d %15.2f",
+                        rs.getString("nome"),
+                        rs.getString("categoria"),
+                        rs.getInt("qtd_vendida"),
+                        rs.getDouble("receita")));
+            }
+        }
+        return linhas;
+    }
