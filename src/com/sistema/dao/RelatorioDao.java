@@ -106,5 +106,16 @@ public class RelatorioDAO {
 
             ps.setInt(1, limite);
             ResultSet rs = ps.executeQuery();
-    }
+            
+            linhas.add(String.format("%-30s %-12s %8s %12s", "Produto", "Categoria", "Estoque", "Preco (R$)"));
+            linhas.add("-".repeat(65));
+            while (rs.next()) {
+                linhas.add(String.format("%-30s %-12s %8d %12.2f",
+                        rs.getString("nome"),
+                        rs.getString("categoria"),
+                        rs.getInt("quantidade_estoque"),
+                        rs.getDouble("preco")));
+            }
+        }
+        return linhas;
 }
