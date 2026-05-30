@@ -50,4 +50,11 @@ public class ClienteService {
         buscarPorId(id);
         clienteDAO.deletar(id);
     }
+
+        private void validarNome(String nome) {
+        if (nome == null || nome.trim().isEmpty())
+            throw new ValidacaoException("Nome nao pode ser vazio.");
+        if (nome.trim().length() < 2)
+            throw new ValidacaoException("Nome deve ter ao menos 2 caracteres.");
+    }
 }
