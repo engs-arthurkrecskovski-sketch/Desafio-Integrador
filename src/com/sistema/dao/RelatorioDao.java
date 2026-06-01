@@ -1,31 +1,31 @@
 package com.sistema.dao;
 
-import com.sistema.util.ConectionUtil;
+import com.sistema.util.ConnectionUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RelatorioDAO {
-    
-     public List<String> relatorioTopClientes(int limite) throws SQLException {
+
+    public List<String> relatorioTopClientes(int limite) throws SQLException {
         String sql = "SELECT c.nome, COUNT(p.id) AS total_pedidos, " +
-            "SUM(ip.quantidade * ip.preco_unit) AS valor_total " +
-            "FROM clientes c " +
-            "JOIN pedidos p ON p.cliente_id = c.id " +
-            "JOIN itens_pedido ip ON ip.pedido_id = p.id " +
-            "WHERE p.status = 'FINALIZADO' " +
-            "GROUP BY c.id, c.nome ORDER BY valor_total DESC LIMIT ?";
+                "SUM(ip.quantidade * ip.preco_unit) AS valor_total " +
+                "FROM clientes c " +
+                "JOIN pedidos p ON p.cliente_id = c.id " +
+                "JOIN itens_pedido ip ON ip.pedido_id = p.id " +
+                "WHERE p.status = 'FINALIZADO' " +
+                "GROUP BY c.id, c.nome ORDER BY valor_total DESC LIMIT ?";
 
-            List<String> linhas = new ArrayList<>();
+        List<String> linhas = new ArrayList<>();
 
-            try (Connection conn = ConnectionUtil.getConnection();
-     PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = ConnectionUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, limite);
-        ResultSet rs = ps.executeQuery();
+            ps.setInt(1, limite);
+            ResultSet rs = ps.executeQuery();
 
-         linhas.add(String.format("%-30s %15s %15s", "Cliente", "Pedidos", "Total (R$)"));
+            linhas.add(String.format("%-30s %15s %15s", "Cliente", "Pedidos", "Total (R$)"));
             linhas.add("-".repeat(62));
             while (rs.next()) {
                 linhas.add(String.format("%-30s %15d %15.2f",
@@ -39,21 +39,21 @@ public class RelatorioDAO {
 
     public List<String> relatorioProdutosMaisVendidos(int limite) throws SQLException {
         String sql = "SELECT pr.nome, pr.categoria, " +
-                     "SUM(ip.quantidade) AS qtd_vendida, " +
-                     "SUM(ip.quantidade * ip.preco_unit) AS receita " +
-                     "FROM produtos pr " +
-                     "JOIN itens_pedido ip ON ip.produto_id = pr.id " +
-                     "JOIN pedidos p ON p.id = ip.pedido_id " +
-                     "WHERE p.status = 'FINALIZADO' " +
-                     "GROUP BY pr.id, pr.nome, pr.categoria ORDER BY qtd_vendida DESC LIMIT ?";
+                "SUM(ip.quantidade) AS qtd_vendida, " +
+                "SUM(ip.quantidade * ip.preco_unit) AS receita " +
+                "FROM produtos pr " +
+                "JOIN itens_pedido ip ON ip.produto_id = pr.id " +
+                "JOIN pedidos p ON p.id = ip.pedido_id " +
+                "WHERE p.status = 'FINALIZADO' " +
+                "GROUP BY pr.id, pr.nome, pr.categoria ORDER BY qtd_vendida DESC LIMIT ?";
 
         List<String> linhas = new ArrayList<>();
 
         try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-                ps.setInt(1, limite);
-                ResultSet rs = ps.executeQuery();
+            ps.setInt(1, limite);
+            ResultSet rs = ps.executeQuery();
 
             linhas.add(String.format("%-30s %-12s %12s %15s", "Produto", "Categoria", "Qtd Vendida", "Receita (R$)"));
             linhas.add("-".repeat(72));
@@ -68,15 +68,15 @@ public class RelatorioDAO {
         return linhas;
     }
 
-        public List<String> relatorioPedidosporStatus() throws SQLException {
-            String sql =  "SELECT p.status, COUNT(p.id) AS quantidade, AVG(sub.total) AS ticket_medio " +
-                     "FROM pedidos p " +
-                     "JOIN (SELECT pedido_id, SUM(quantidade * preco_unit) AS total FROM itens_pedido GROUP BY pedido_id) sub " +
-                     "ON sub.pedido_id = p.id " +
-                     "GROUP BY p.status " +
-                     "ORDER BY FIELD(p.status, 'ABERTO', 'FILA', 'PROCESSANDO', 'FINALIZADO')";
-        
-            List<String> linhas = new ArrayList<>();
+    public List<String> relatorioPedidosporStatus() throws SQLException {
+        String sql = "SELECT p.status, COUNT(p.id) AS quantidade, AVG(sub.total) AS ticket_medio " +
+                "FROM pedidos p " +
+                "JOIN (SELECT pedido_id, SUM(quantidade * preco_unit) AS total FROM itens_pedido GROUP BY pedido_id) sub " +
+                "ON sub.pedido_id = p.id " +
+                "GROUP BY p.status " +
+                "ORDER BY FIELD(p.status, 'ABERTO', 'FILA', 'PROCESSANDO', 'FINALIZADO')";
+
+        List<String> linhas = new ArrayList<>();
 
         try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -94,19 +94,18 @@ public class RelatorioDAO {
         return linhas;
     }
 
-        public List<String> relatorioEstoqueCritico(int limite) throws SQLException {
-            String sql = "SELECT nome, categoria, quantidade_estoque, preco FROM produtos " +
-                     "WHERE quantidade_estoque <= ? ORDER BY quantidade_estoque ASC";
-                    }
+    public List<String> relatorioEstoqueCritico(int limite) throws SQLException {
+        String sql = "SELECT nome, categoria, quantidade_estoque, preco FROM produtos " +
+                "WHERE quantidade_estoque <= ? ORDER BY quantidade_estoque ASC";
 
-                    List<String> linhas = new ArrayList<>();
+        List<String> linhas = new ArrayList<>();
 
         try (Connection conn = ConnectionUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, limite);
             ResultSet rs = ps.executeQuery();
-            
+
             linhas.add(String.format("%-30s %-12s %8s %12s", "Produto", "Categoria", "Estoque", "Preco (R$)"));
             linhas.add("-".repeat(65));
             while (rs.next()) {
@@ -118,4 +117,5 @@ public class RelatorioDAO {
             }
         }
         return linhas;
+    }
 }

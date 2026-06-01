@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ClienteDao {
+public class ClienteDAO {
 
     public Cliente salvar(Cliente cliente) throws SQLException {
         String sql = "INSERT INTO clientes (nome, email) VALUES (?, ?)";

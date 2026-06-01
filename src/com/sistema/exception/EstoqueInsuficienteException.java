@@ -1,8 +1,8 @@
 package com.sistema.exception;
 
 
-public class EstoqueInsuficiente extends RuntimeException {
-    public EstoqueInsuficiente(String nomeProduto, int solicitado, int disponivel) {
+public class EstoqueInsuficienteException extends RuntimeException {
+    public EstoqueInsuficienteException(String nomeProduto, int solicitado, int disponivel) {
         super("Estoque insuficiente para '" + nomeProduto + "': solicitado=" + solicitado + ", disponivel=" + disponivel);
     }
 }
