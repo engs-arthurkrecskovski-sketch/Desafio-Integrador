@@ -20,6 +20,14 @@ public class PedidoService {
 private final ProdutoDAO produtoDAO = new ProdutoDAO();
 private final ClienteService clienteService = new ClienteService();
 
+  public Pedido criar(long clienteId, Map<Long, Integer> itensMap) throws SQLException {
+        if (itensMap == null || itensMap.isEmpty())
+            throw new ValidacaoException("Um pedido deve ter pelo menos um item.");
 
+        Cliente cliente = clienteService.buscarPorId(clienteId);
+        List<ItemPedido> itens = new ArrayList<>();
+
+        
+}
 
 }
