@@ -13,3 +13,13 @@ public class OrderProcessor implements Runnable {
 
     private volatile boolean rodando = true;
     private final PedidoDAO pedidoDAO = new PedidoDAO();
+
+    @Override
+    public void run() {
+        System.out.println("[Thread] OrderProcessor iniciado.");
+        while (rodando) {
+            processarUm();
+            aguardar(INTERVALO_MS);
+        }
+        System.out.println("[Thread] OrderProcessor encerrado.");
+    }
