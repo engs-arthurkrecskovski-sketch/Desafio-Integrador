@@ -43,3 +43,28 @@ public class PedidoMenu {
             }
         }
     }
+
+    private void criar() {
+        try {
+            System.out.print("ID do cliente: ");
+            long clienteId = Long.parseLong(scanner.nextLine().trim());
+
+            Map<Long, Integer> itens = new LinkedHashMap<>();
+            System.out.println("Adicione os itens (digite 0 como ID para finalizar):");
+
+            while (true) {
+                System.out.print("  ID do produto: ");
+                long produtoId = Long.parseLong(scanner.nextLine().trim());
+                if (produtoId == 0) break;
+
+                System.out.print("  Quantidade: ");
+                int qtd = Integer.parseInt(scanner.nextLine().trim());
+                itens.put(produtoId, qtd);
+            }
+
+            Pedido pedido = pedidoService.criar(clienteId, itens);
+            System.out.println("Pedido criado com sucesso!\n" + pedido);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
