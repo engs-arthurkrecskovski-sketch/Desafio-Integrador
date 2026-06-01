@@ -1,5 +1,5 @@
 package com.sistema.console;
 
-public class ClienteMeno {
+public class ClienteMenu {
     
 }
