@@ -27,7 +27,29 @@ private final ClienteService clienteService = new ClienteService();
         Cliente cliente = clienteService.buscarPorId(clienteId);
         List<ItemPedido> itens = new ArrayList<>();
 
-        
+         for (Map.Entry<Long, Integer> entry : itensMap.entrySet()) {
+            long produtoId = entry.getKey();
+            int qtd = entry.getValue();
+
+            if (qtd <= 0)
+                throw new ValidacaoException("Quantidade deve ser maior que zero.");
+
+            Produto produto = produtoDAO.buscarPorId(produtoId)
+                    .orElseThrow(() -> new EntidadeNaoEncontradaException("Produto", produtoId));
+
+            if (produto.getQuantidadeEstoque() < qtd)
+                throw new EstoqueInsuficienteException(produto.getNome(), qtd, produto.getQuantidadeEstoque());
+
+            itens.add(new ItemPedido(produto, qtd));
+        }
+
+        return pedidoDAO.salvar(new Pedido(cliente, itens));
 }
+
+
+
+
+
+
 
 }
