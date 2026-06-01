@@ -54,3 +54,11 @@ public class OrderProcessor implements Runnable {
             System.err.println("[Thread] Falha na conexao: " + e.getMessage());
         }
     }
+    private void aguardar(int ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            rodando = false;
+        }
+    }
