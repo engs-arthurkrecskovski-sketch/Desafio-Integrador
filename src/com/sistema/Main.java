@@ -6,7 +6,7 @@ import com.sistema.console.ProdutoMenu;
 import com.sistema.console.RelatorioMenu;
 import com.sistema.thread.OrderProcessor;
 
-import java.util.Scanner
+import java.util.Scanner;
 
 public class Main {
 
