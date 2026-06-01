@@ -34,5 +34,12 @@ private void produtosMaisVendidos() {
         }
     }
 
+    private void pedidosPorStatus() {
+        try {
+            imprimir(relatorioService.pedidosPorStatus());
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
 
 }
