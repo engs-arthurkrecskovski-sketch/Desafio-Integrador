@@ -75,5 +75,35 @@ public class ClienteMenu {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
+    private void atualizar() {
+        try {
+            System.out.print("ID do cliente: ");
+            long id = Long.parseLong(scanner.nextLine().trim());
+            System.out.print("Novo nome: ");
+            String nome = scanner.nextLine();
+            System.out.print("Novo e-mail: ");
+            String email = scanner.nextLine();
+
+            Cliente atualizado = clienteService.atualizar(id, nome, email);
+            System.out.println("Cliente atualizado: " + atualizado);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
+    private void deletar() {
+        try {
+            System.out.print("ID do cliente: ");
+            long id = Long.parseLong(scanner.nextLine().trim());
+            clienteService.deletar(id);
+            System.out.println("Cliente removido com sucesso.");
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+}
+
+
     
     
