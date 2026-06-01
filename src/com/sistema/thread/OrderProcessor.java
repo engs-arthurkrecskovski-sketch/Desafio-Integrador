@@ -62,3 +62,8 @@ public class OrderProcessor implements Runnable {
             rodando = false;
         }
     }
+
+    public void parar() {
+        rodando = false;
+    }
+}
