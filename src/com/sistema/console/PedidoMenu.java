@@ -91,3 +91,28 @@ public class PedidoMenu {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
+    private void listarPorCliente() {
+        try {
+            System.out.print("ID do cliente: ");
+            long clienteId = Long.parseLong(scanner.nextLine().trim());
+            List<Pedido> lista = pedidoService.listarPorCliente(clienteId);
+            if (lista.isEmpty()) {
+                System.out.println("Nenhum pedido encontrado para esse cliente.");
+                return;
+            }
+            lista.forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
+    private void enviarParaFila() {
+        try {
+            System.out.print("ID do pedido: ");
+            long id = Long.parseLong(scanner.nextLine().trim());
+            pedidoService.enviarParaFila(id);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
