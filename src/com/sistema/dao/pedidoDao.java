@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class PedidoDAO {
-    private final ClienteDAO clienteDAO = new ClienteDAO();
     private final ItemPedidoDAO itemPedidoDAO = new ItemPedidoDAO();
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
 
