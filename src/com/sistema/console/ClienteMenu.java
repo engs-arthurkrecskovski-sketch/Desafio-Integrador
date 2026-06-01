@@ -66,5 +66,14 @@ public class ClienteMenu {
         }
     }
 
+   private void buscarPorId() {
+        try {
+            System.out.print("ID do cliente: ");
+            long id = Long.parseLong(scanner.nextLine().trim());
+            System.out.println(clienteService.buscarPorId(id));
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
     
     
