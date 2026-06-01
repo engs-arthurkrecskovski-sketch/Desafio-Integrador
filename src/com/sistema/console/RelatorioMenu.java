@@ -24,7 +24,15 @@ private void topClientes() {
         }
     }
 
-
+private void produtosMaisVendidos() {
+        try {
+            System.out.print("Quantos produtos exibir? ");
+            int limite = Integer.parseInt(scanner.nextLine().trim());
+            imprimir(relatorioService.produtosMaisVendidos(limite));
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
 
 
 }
