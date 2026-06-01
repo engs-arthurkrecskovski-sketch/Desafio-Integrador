@@ -55,7 +55,7 @@ public List<Pedido> listarTodos() throws SQLException {
         return pedidoDAO.listarTodos();
     }
 
-    
+
  public List<Pedido> listarPorCliente(long clienteId) throws SQLException {
         clienteService.buscarPorId(clienteId);
         return pedidoDAO.listarPorCliente(clienteId);
@@ -71,4 +71,10 @@ public List<Pedido> listarTodos() throws SQLException {
     }
 
 
+     public List<Pedido> listarPorStatus(StatusPedido status) throws SQLException {
+        return pedidoDAO.listarTodos().stream()
+                .filter(p -> p.getStatus() == status)
+                .toList();
+    }
+    
 }
