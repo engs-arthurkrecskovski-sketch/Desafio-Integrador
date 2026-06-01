@@ -42,4 +42,19 @@ private void produtosMaisVendidos() {
         }
     }
 
+    private void estoqueCritico() {
+        try {
+            System.out.print("Exibir produtos com estoque abaixo de: ");
+            int limite = Integer.parseInt(scanner.nextLine().trim());
+            imprimir(relatorioService.estoqueCritico(limite));
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
+    private void imprimir(List<String> linhas) {
+        System.out.println();
+        linhas.forEach(System.out::println);
+    }
+
 }
