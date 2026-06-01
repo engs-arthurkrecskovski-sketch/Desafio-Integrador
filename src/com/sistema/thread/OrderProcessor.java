@@ -37,3 +37,20 @@ public class OrderProcessor implements Runnable {
                 conn.commit();
                 System.out.println("[Thread] Processando pedido #" + pedidoId + "...");
                 aguardar(PROCESSAMENTO_MS);
+
+                conn.setAutoCommit(false);
+                pedidoDAO.finalizarPedido(conn, pedidoId);
+                conn.commit();
+                System.out.println("[Thread] Pedido #" + pedidoId + " FINALIZADO.");
+
+            } catch (Exception e) {
+                try { conn.rollback(); } catch (SQLException ex) { /* ignora */ }
+                System.err.println("[Thread] Erro ao processar pedido: " + e.getMessage());
+            } finally {
+                try { conn.setAutoCommit(true); } catch (SQLException e) { /* ignora */ }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("[Thread] Falha na conexao: " + e.getMessage());
+        }
+    }
