@@ -50,7 +50,10 @@ private final ClienteService clienteService = new ClienteService();
         return pedidoDAO.buscarPorId(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Pedido", id));
     }
-
+    
+public List<Pedido> listarTodos() throws SQLException {
+        return pedidoDAO.listarTodos();
+    }
 
 
 
