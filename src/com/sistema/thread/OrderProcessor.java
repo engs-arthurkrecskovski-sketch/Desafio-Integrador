@@ -23,3 +23,17 @@ public class OrderProcessor implements Runnable {
         }
         System.out.println("[Thread] OrderProcessor encerrado.");
     }
+
+    private void processarUm() {
+        try (Connection conn = ConnectionUtil.getConnection()) {
+            conn.setAutoCommit(false);
+            try {
+                long pedidoId = pedidoDAO.reservarProximoPedidoDaFila(conn);
+                if (pedidoId < 0) {
+                    conn.rollback();
+                    return;
+                }
+
+                conn.commit();
+                System.out.println("[Thread] Processando pedido #" + pedidoId + "...");
+                aguardar(PROCESSAMENTO_MS);
