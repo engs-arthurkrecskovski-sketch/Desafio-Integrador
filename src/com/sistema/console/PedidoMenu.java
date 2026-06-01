@@ -116,3 +116,25 @@ public class PedidoMenu {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
+    private void listarPorStatus() {
+        try {
+            System.out.println("Status: 1-ABERTO  2-FILA  3-PROCESSANDO  4-FINALIZADO");
+            System.out.print("Escolha: ");
+            StatusPedido status = switch (scanner.nextLine().trim()) {
+                case "1" -> StatusPedido.ABERTO;
+                case "2" -> StatusPedido.FILA;
+                case "3" -> StatusPedido.PROCESSANDO;
+                case "4" -> StatusPedido.FINALIZADO;
+                default  -> throw new IllegalArgumentException("Status invalido.");
+            };
+            List<Pedido> lista = pedidoService.listarPorStatus(status);
+            if (lista.isEmpty()) {
+                System.out.println("Nenhum pedido com esse status.");
+                return;
+            }
+            lista.forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
