@@ -50,12 +50,25 @@ private final ClienteService clienteService = new ClienteService();
         return pedidoDAO.buscarPorId(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Pedido", id));
     }
-    
+
 public List<Pedido> listarTodos() throws SQLException {
         return pedidoDAO.listarTodos();
     }
 
+    
+ public List<Pedido> listarPorCliente(long clienteId) throws SQLException {
+        clienteService.buscarPorId(clienteId);
+        return pedidoDAO.listarPorCliente(clienteId);
+    }
 
+    public void enviarParaFila(long pedidoId) throws SQLException {
+        Pedido pedido = buscarPorId(pedidoId);
+        if (pedido.getStatus() != StatusPedido.ABERTO)
+            throw new ValidacaoException("Apenas pedidos ABERTOS podem ser enviados para a fila. Status atual: " + pedido.getStatus());
+
+        pedidoDAO.atualizarStatus(pedidoId, StatusPedido.FILA);
+        System.out.println("[Fila] Pedido #" + pedidoId + " enviado para processamento.");
+    }
 
 
 }
