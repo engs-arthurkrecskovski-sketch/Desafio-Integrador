@@ -38,5 +38,19 @@ public class ClienteMenu {
             }
         }
     }
+
+    private void cadastrar() {
+        try {
+            System.out.print("Nome: ");
+            String nome = scanner.nextLine();
+            System.out.print("E-mail: ");
+            String email = scanner.nextLine();
+
+            Cliente cliente = clienteService.cadastrar(nome, email);
+            System.out.println("Cliente cadastrado: " + cliente);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
     
     
