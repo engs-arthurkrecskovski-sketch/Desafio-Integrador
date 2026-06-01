@@ -52,5 +52,19 @@ public class ClienteMenu {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
+     private void listarTodos() {
+        try {
+            List<Cliente> lista = clienteService.listarTodos();
+            if (lista.isEmpty()) {
+                System.out.println("Nenhum cliente cadastrado.");
+                return;
+            }
+            lista.forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
+
     
     
