@@ -14,3 +14,17 @@ public class ClienteMenu {
     public ClienteMenu(Scanner scanner) {
         this.scanner = scanner;
     }
+
+    public void exibir() {
+        boolean voltar = false;
+        while (!voltar) {
+            System.out.println("\n--- CLIENTES ---");
+            System.out.println("1. Cadastrar cliente");
+            System.out.println("2. Listar todos");
+            System.out.println("3. Buscar por ID");
+            System.out.println("4. Atualizar cliente");
+            System.out.println("5. Deletar cliente");
+            System.out.println("0. Voltar");
+            System.out.print("Opcao: ");
+    
+    
