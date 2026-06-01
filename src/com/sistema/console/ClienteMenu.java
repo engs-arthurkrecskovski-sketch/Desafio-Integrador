@@ -26,5 +26,17 @@ public class ClienteMenu {
             System.out.println("5. Deletar cliente");
             System.out.println("0. Voltar");
             System.out.print("Opcao: ");
+
+            switch (scanner.nextLine().trim()) {
+                case "1" -> cadastrar();
+                case "2" -> listarTodos();
+                case "3" -> buscarPorId();
+                case "4" -> atualizar();
+                case "5" -> deletar();
+                case "0" -> voltar = true;
+                default  -> System.out.println("Opcao invalida.");
+            }
+        }
+    }
     
     
