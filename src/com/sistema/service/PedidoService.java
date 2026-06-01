@@ -46,7 +46,10 @@ private final ClienteService clienteService = new ClienteService();
         return pedidoDAO.salvar(new Pedido(cliente, itens));
 }
 
-
+ public Pedido buscarPorId(long id) throws SQLException {
+        return pedidoDAO.buscarPorId(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Pedido", id));
+    }
 
 
 
