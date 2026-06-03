@@ -23,13 +23,13 @@ public class Main {
         PedidoMenu pedidoMenu       = new PedidoMenu(scanner);
         RelatorioMenu relatorioMenu = new RelatorioMenu(scanner);
 
-        System.out.println("=====================================");
-        System.out.println("  SISTEMA DE GERENCIAMENTO DE PEDIDOS");
-        System.out.println("=====================================");
+       
+        System.out.println(" SISTEMA DE GERENCIAMENTO DE PEDIDOS ");
+    
 
         boolean rodando = true;
         while (rodando) {
-            System.out.println("\n===== MENU PRINCIPAL =====");
+            System.out.println("\n MENU PRINCIPAL ");
             System.out.println("1. Clientes");
             System.out.println("2. Produtos");
             System.out.println("3. Pedidos");
