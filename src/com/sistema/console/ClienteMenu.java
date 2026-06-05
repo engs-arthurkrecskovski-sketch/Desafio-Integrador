@@ -120,14 +120,26 @@ public class ClienteMenu {
     }
 }
 
-    private void deletar() {
+   private void deletar() {
+    try {
+        System.out.print("ID do cliente: ");
+        long id;
         try {
-            System.out.print("ID do cliente: ");
-            long id = Long.parseLong(scanner.nextLine().trim());
-            clienteService.deletar(id);
-            System.out.println("Cliente removido com sucesso.");
-        } catch (Exception e) {
+            id = Long.parseLong(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: ID deve ser um numero inteiro.");
+            return;
+        }
+        clienteService.deletar(id);
+        System.out.println("Cliente removido com sucesso.");
+    } catch (java.sql.SQLException e) {
+        if (e.getMessage() != null && e.getMessage().toLowerCase().contains("foreign key")) {
+            System.out.println("Erro: Este cliente possui pedidos e nao pode ser removido.");
+        } else {
             System.out.println("Erro: " + e.getMessage());
         }
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 }
