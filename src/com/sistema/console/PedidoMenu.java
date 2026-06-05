@@ -104,20 +104,32 @@ public class PedidoMenu {
     }
 }
 
-    private void listarPorCliente() {
-        try {
+   private void listarPorCliente() {
+    try {
+        long clienteId = -1;
+        while (clienteId < 0) {
             System.out.print("ID do cliente: ");
-            long clienteId = Long.parseLong(scanner.nextLine().trim());
-            List<Pedido> lista = pedidoService.listarPorCliente(clienteId);
-            if (lista.isEmpty()) {
-                System.out.println("Nenhum pedido encontrado para esse cliente.");
-                return;
+            String entrada = scanner.nextLine().trim();
+            try {
+                clienteId = Long.parseLong(entrada);
+                if (clienteId <= 0) {
+                    System.out.println("Digite um numero positivo.");
+                    clienteId = -1;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada invalida. Digite apenas numeros.");
             }
-            lista.forEach(System.out::println);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
         }
+        List<Pedido> lista = pedidoService.listarPorCliente(clienteId);
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum pedido encontrado para esse cliente.");
+            return;
+        }
+        lista.forEach(System.out::println);
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void enviarParaFila() {
         try {
