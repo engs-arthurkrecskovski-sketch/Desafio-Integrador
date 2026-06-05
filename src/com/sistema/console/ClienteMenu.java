@@ -40,18 +40,26 @@ public class ClienteMenu {
     }
 
     private void cadastrar() {
-        try {
-            System.out.print("Nome: ");
-            String nome = scanner.nextLine();
+    try {
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+
+        while (true) {
             System.out.print("E-mail: ");
             String email = scanner.nextLine();
-
-            Cliente cliente = clienteService.cadastrar(nome, email);
-            System.out.println("Cliente cadastrado: " + cliente);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            try {
+                Cliente cliente = clienteService.cadastrar(nome, email);
+                System.out.println("Cliente cadastrado: " + cliente);
+                return; 
+            } catch (com.sistema.exception.EmailInvalidoException e) {
+                System.out.println("Erro: " + e.getMessage() + " — tente novamente.");
+               
+            }
         }
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void listarTodos() {
         try {
@@ -66,31 +74,51 @@ public class ClienteMenu {
         }
     }
 
-    private void buscarPorId() {
+   private void buscarPorId() {
+    try {
+        System.out.print("ID do cliente: ");
+        long id;
         try {
-            System.out.print("ID do cliente: ");
-            long id = Long.parseLong(scanner.nextLine().trim());
-            System.out.println(clienteService.buscarPorId(id));
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            id = Long.parseLong(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: ID deve ser um numero inteiro.");
+            return;
         }
+        System.out.println(clienteService.buscarPorId(id));
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void atualizar() {
+    try {
+        System.out.print("ID do cliente: ");
+        long id;
         try {
-            System.out.print("ID do cliente: ");
-            long id = Long.parseLong(scanner.nextLine().trim());
-            System.out.print("Novo nome: ");
-            String nome = scanner.nextLine();
+            id = Long.parseLong(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: ID deve ser um numero inteiro.");
+            return;
+        }
+
+        System.out.print("Novo nome: ");
+        String nome = scanner.nextLine();
+
+        while (true) {
             System.out.print("Novo e-mail: ");
             String email = scanner.nextLine();
-
-            Cliente atualizado = clienteService.atualizar(id, nome, email);
-            System.out.println("Cliente atualizado: " + atualizado);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            try {
+                Cliente atualizado = clienteService.atualizar(id, nome, email);
+                System.out.println("Cliente atualizado: " + atualizado);
+                return;
+            } catch (com.sistema.exception.EmailInvalidoException e) {
+                System.out.println("Erro: " + e.getMessage() + " — tente novamente.");
+            }
         }
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void deletar() {
         try {
