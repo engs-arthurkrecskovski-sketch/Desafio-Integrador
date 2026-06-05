@@ -40,24 +40,34 @@ public class ClienteMenu {
     }
 
     private void cadastrar() {
-    try {
+    String nome = "";
+    while (true) {
         System.out.print("Nome: ");
-        String nome = scanner.nextLine();
-
-        while (true) {
-            System.out.print("E-mail: ");
-            String email = scanner.nextLine();
-            try {
-                Cliente cliente = clienteService.cadastrar(nome, email);
-                System.out.println("Cliente cadastrado: " + cliente);
-                return; 
-            } catch (com.sistema.exception.EmailInvalidoException e) {
-                System.out.println("Erro: " + e.getMessage() + " — tente novamente.");
-               
-            }
+        nome = scanner.nextLine().trim();
+        if (nome.isEmpty()) {
+            System.out.println("Erro: Nome nao pode ser vazio. Tente novamente.");
+        } else if (nome.length() < 3) {
+            System.out.println("Erro: Nome deve ter ao menos 3 caracteres. Tente novamente.");
+        } else {
+            break;
         }
-    } catch (Exception e) {
-        System.out.println("Erro: " + e.getMessage());
+    }
+
+    while (true) {
+        System.out.print("E-mail: ");
+        String email = scanner.nextLine().trim();
+        try {
+            Cliente cliente = clienteService.cadastrar(nome, email);
+            System.out.println("Cliente cadastrado: " + cliente);
+            return;
+        } catch (com.sistema.exception.EmailInvalidoException e) {
+            System.out.println("Erro: " + e.getMessage() + " — tente novamente.");
+        } catch (com.sistema.exception.ValidacaoException e) {
+            System.out.println("Erro: " + e.getMessage() + " — tente novamente.");
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+            return;
+        }
     }
 }
 
