@@ -83,14 +83,26 @@ public class PedidoMenu {
     }
 
     private void buscarPorId() {
-        try {
+    try {
+        long id = -1;
+        while (id < 0) {
             System.out.print("ID do pedido: ");
-            long id = Long.parseLong(scanner.nextLine().trim());
-            System.out.println(pedidoService.buscarPorId(id));
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            String entrada = scanner.nextLine().trim();
+            try {
+                id = Long.parseLong(entrada);
+                if (id <= 0) {
+                    System.out.println("Digite um numero positivo.");
+                    id = -1;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada invalida. Digite apenas numeros.");
+            }
         }
+        System.out.println(pedidoService.buscarPorId(id));
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void listarPorCliente() {
         try {
