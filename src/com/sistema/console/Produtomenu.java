@@ -43,22 +43,58 @@ public class ProdutoMenu {
         }
     }
 
-    private void cadastrar() {
-        try {
-            System.out.print("Nome: ");
-            String nome = scanner.nextLine();
-            System.out.print("Preco: ");
-            BigDecimal preco = new BigDecimal(scanner.nextLine().trim().replace(",", "."));
-            System.out.print("Quantidade em estoque: ");
-            int estoque = Integer.parseInt(scanner.nextLine().trim());
-            Categoria categoria = lerCategoria();
+private void cadastrar() {
+    try {
+        String nome = "";
+        BigDecimal preco = null;
+        int estoque = 0;
+        Categoria categoria = null;
 
-            Produto p = produtoService.cadastrar(nome, preco, estoque, categoria);
-            System.out.println("Produto cadastrado: " + p);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+        while (true) {
+            System.out.print("Nome: ");
+            nome = scanner.nextLine().trim();
+            if (nome.length() >= 3 && !nome.matches(".*\\d.*")) {
+                break;
+            }
+            System.out.println("Erro: Nome invalido. Tente novamente.");
         }
+
+        while (true) {
+            System.out.print("Preco: ");
+            String entradaPreco = scanner.nextLine().trim().replace(",", ".");
+            if (entradaPreco.matches("\\d+(\\.\\d+)?")) {
+                preco = new BigDecimal(entradaPreco);
+                break;
+            }
+            System.out.println("Erro: Preco invalido. Tente novamente.");
+        }
+
+        while (true) {
+            System.out.print("Quantidade em estoque: ");
+            String entradaEstoque = scanner.nextLine().trim();
+            if (entradaEstoque.matches("\\d+")) {
+                estoque = Integer.parseInt(entradaEstoque);
+                break;
+            }
+            System.out.println("Erro: Quantidade invalida. Tente novamente.");
+        }
+
+        while (true) {
+            try {
+                categoria = lerCategoria();
+                break; 
+            } catch (Exception e) {
+                System.out.println("Erro: Categoria invalida. Tente novamente.");
+            }
+        }
+
+        Produto p = produtoService.cadastrar(nome, preco, estoque, categoria);
+        System.out.println("Produto cadastrado: " + p);
+
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void listarTodos() {
         try {
@@ -98,43 +134,91 @@ public class ProdutoMenu {
     }
 
     private void atualizar() {
-        try {
-            System.out.print("ID do produto: ");
-            long id = Long.parseLong(scanner.nextLine().trim());
-            System.out.print("Novo nome: ");
-            String nome = scanner.nextLine();
-            System.out.print("Novo preco: ");
-            BigDecimal preco = new BigDecimal(scanner.nextLine().trim().replace(",", "."));
-            System.out.print("Nova quantidade em estoque: ");
-            int estoque = Integer.parseInt(scanner.nextLine().trim());
-            Categoria categoria = lerCategoria();
+    try {
+        long id = 0;
+        String nome = "";
+        BigDecimal preco = null;
+        int estoque = 0;
 
-            Produto p = produtoService.atualizar(id, nome, preco, estoque, categoria);
-            System.out.println("Produto atualizado: " + p);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+        while (true) {
+            System.out.print("ID do produto: ");
+            String entradaId = scanner.nextLine().trim();
+            if (entradaId.matches("\\d+")) {
+                id = Long.parseLong(entradaId);
+                break;
+            }
+            System.out.println("Erro: ID invalido. Tente novamente.");
         }
+
+        while (true) {
+            System.out.print("Novo nome: ");
+            nome = scanner.nextLine().trim();
+            if (nome.length() >= 3 && !nome.matches(".*\\d.*")) {
+                break;
+            }
+            System.out.println("Erro: Nome invalido. Tente novamente.");
+        }
+
+        while (true) {
+            System.out.print("Novo preco: ");
+            String entradaPreco = scanner.nextLine().trim().replace(",", ".");
+            if (entradaPreco.matches("\\d+(\\.\\d+)?")) {
+                preco = new BigDecimal(entradaPreco);
+                break;
+            }
+            System.out.println("Erro: Preco invalido. Tente novamente.");
+        }
+
+        while (true) {
+            System.out.print("Nova quantidade em estoque: ");
+            String entradaEstoque = scanner.nextLine().trim();
+            if (entradaEstoque.matches("\\d+")) {
+                estoque = Integer.parseInt(entradaEstoque);
+                break;
+            }
+            System.out.println("Erro: Quantidade invalida. Tente novamente.");
+        }
+
+        Categoria categoria = lerCategoria();
+
+        Produto p = produtoService.atualizar(id, nome, preco, estoque, categoria);
+        System.out.println("Produto atualizado: " + p);
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void deletar() {
-        try {
+    try {
+        while (true) {
             System.out.print("ID do produto: ");
-            long id = Long.parseLong(scanner.nextLine().trim());
-            produtoService.deletar(id);
-            System.out.println("Produto removido com sucesso.");
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            String entradaId = scanner.nextLine().trim();
+            
+            if (entradaId.matches("\\d+")) {
+                long id = Long.parseLong(entradaId);
+                produtoService.deletar(id);
+                System.out.println("Produto removido com sucesso.");
+                break;
+            }
+            System.out.println("Erro: ID invalido. Digite apenas numeros.");
+        }
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
+    }
+}
+
+    private Categoria lerCategoria() {
+    while (true) {
+        System.out.println("Categorias: 1-ALIMENTOS  2-ELETRONICOS  3-LIVROS");
+        System.out.print("Escolha: ");
+        switch (scanner.nextLine().trim()) {
+            case "1" -> { return Categoria.ALIMENTOS; }
+            case "2" -> { return Categoria.ELETRONICOS; }
+            case "3" -> { return Categoria.LIVROS; }
+            default  -> System.out.println("Erro: Opcao invalida. Tente novamente.");
         }
     }
 
-    private Categoria lerCategoria() {
-        System.out.println("Categorias: 1-ALIMENTOS  2-ELETRONICOS  3-LIVROS");
-        System.out.print("Escolha: ");
-        return switch (scanner.nextLine().trim()) {
-            case "1" -> Categoria.ALIMENTOS;
-            case "2" -> Categoria.ELETRONICOS;
-            case "3" -> Categoria.LIVROS;
-            default  -> throw new IllegalArgumentException("Categoria invalida.");
-        };
-    }
+}
+
 }
