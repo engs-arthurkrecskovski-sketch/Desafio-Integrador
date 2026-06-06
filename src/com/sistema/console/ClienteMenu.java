@@ -18,7 +18,7 @@ public class ClienteMenu {
     public void exibir() {
         boolean voltar = false;
         while (!voltar) {
-            System.out.println("\n--- CLIENTES ---");
+            System.out.println("\nCLIENTES ");
             System.out.println("1. Cadastrar cliente");
             System.out.println("2. Listar todos");
             System.out.println("3. Buscar por ID");
@@ -48,7 +48,11 @@ public class ClienteMenu {
             System.out.println("Erro: Nome nao pode ser vazio. Tente novamente.");
         } else if (nome.length() < 3) {
             System.out.println("Erro: Nome deve ter ao menos 3 caracteres. Tente novamente.");
-        } else {
+        } 
+          else if (nome.matches(".*\\d.*")) { 
+            System.out.println("Erro: Nome nao pode conter numeros. Tente novamente.");
+        }
+        else {
             break;
         }
     }
@@ -100,33 +104,44 @@ public class ClienteMenu {
     }
 }
 
-    private void atualizar() {
-    try {
+  private void atualizar() {
+    long id = 0;
+    String nome = "", email = "";
+
+    while (true) {
         System.out.print("ID do cliente: ");
-        long id;
-        try {
-            id = Long.parseLong(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
-            System.out.println("Erro: ID deve ser um numero inteiro.");
-            return;
+        String entradaId = scanner.nextLine().trim();
+        if (entradaId.matches("\\d+")) { 
+            id = Long.parseLong(entradaId);
+            break;
         }
+        System.out.println("Erro: ID inválido. Digite apenas números.");
+    }
 
+    
+    while (true) {
         System.out.print("Novo nome: ");
-        String nome = scanner.nextLine();
-
-        while (true) {
-            System.out.print("Novo e-mail: ");
-            String email = scanner.nextLine();
-            try {
-                Cliente atualizado = clienteService.atualizar(id, nome, email);
-                System.out.println("Cliente atualizado: " + atualizado);
-                return;
-            } catch (com.sistema.exception.EmailInvalidoException e) {
-                System.out.println("Erro: " + e.getMessage() + " — tente novamente.");
-            }
+        nome = scanner.nextLine().trim();
+        if (nome.length() >= 3 && !nome.matches(".*\\d.*")) {
+            break; 
         }
-    } catch (Exception e) {
-        System.out.println("Erro: " + e.getMessage());
+        System.out.println("Erro: Nome inválido (mínimo 3 letras e sem números).");
+    }
+
+
+    while (true) {
+        System.out.print("Novo e-mail: ");
+        email = scanner.nextLine().trim();
+        try {
+            Cliente atualizado = clienteService.atualizar(id, nome, email);
+            System.out.println("Cliente atualizado: " + atualizado);
+            break; 
+        } catch (com.sistema.exception.EmailInvalidoException e) {
+            System.out.println("Erro: E-mail inválido — tente novamente.");
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar: " + e.getMessage());
+            break;
+        }
     }
 }
 
