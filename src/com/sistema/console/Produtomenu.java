@@ -20,7 +20,7 @@ public class ProdutoMenu {
     public void exibir() {
         boolean voltar = false;
         while (!voltar) {
-            System.out.println("\n--- PRODUTOS ---");
+            System.out.println("\nPRODUTOS ");
             System.out.println("1. Cadastrar produto");
             System.out.println("2. Listar todos");
             System.out.println("3. Listar por categoria");
@@ -96,6 +96,7 @@ private void cadastrar() {
     }
 }
 
+
     private void listarTodos() {
         try {
             List<Produto> lista = produtoService.listarTodos();
@@ -108,6 +109,7 @@ private void cadastrar() {
             System.out.println("Erro: " + e.getMessage());
         }
     }
+
 
     private void listarPorCategoria() {
         try {
@@ -123,15 +125,24 @@ private void cadastrar() {
         }
     }
 
+    
     private void buscarPorId() {
-        try {
+    try {
+        while (true) {
             System.out.print("ID do produto: ");
-            long id = Long.parseLong(scanner.nextLine().trim());
-            System.out.println(produtoService.buscarPorId(id));
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
+            String entradaId = scanner.nextLine().trim();
+            
+            if (entradaId.matches("\\d+")) {
+                long id = Long.parseLong(entradaId);
+                System.out.println(produtoService.buscarPorId(id));
+                break;
+            }
+            System.out.println("Erro: ID invalido. Tente novamente.");
         }
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void atualizar() {
     try {
