@@ -107,5 +107,20 @@ DECISÕES TOMADAS
     CONTROLE TRANSACIONAL:
         A criação de pedidos usa uma única Connection com autoCommit=false. O decremento de estoque é feito com um UPDATE condicional WHERE quantidade_estoque >= ?, garantindo atomicidade mesmo sob concorrência. Se qualquer etapa falhar, é feito rollback.
 
-    
+    THREAD DE PROCESSAMENTO:
+        O OrderProcessor roda como daemon thread. A cada ciclo ele abre sua própria conexão, reserva atomicamente um pedido da fila mudando de FILA para PROCESSANDO em um único UPDATE, simula o processamento e finaliza. A conexão é fechada ao final de cada ciclo, totalmente isolada da conexão do menu principal.
+
+
+FUNCIONALIDADES
+
+        Cadastro, listagem, atualização e remoção de clientes e produtos
+        - Criação de pedidos com verificação de estoque
+        - Envio de pedidos para fila de processamento assíncrono
+        - Listagem de pedidos por cliente, status e ID
+        - 4 relatórios gerenciais:
+        - Top clientes por valor gasto
+        - Produtos mais vendidos
+        - Pedidos por status com ticket médio
+        - Produtos com estoque crítico            
+
 
