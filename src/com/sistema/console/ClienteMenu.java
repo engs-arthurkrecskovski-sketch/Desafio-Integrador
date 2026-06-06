@@ -75,6 +75,7 @@ public class ClienteMenu {
     }
 }
 
+
     private void listarTodos() {
         try {
             List<Cliente> lista = clienteService.listarTodos();
@@ -88,21 +89,23 @@ public class ClienteMenu {
         }
     }
 
-   private void buscarPorId() {
-    try {
-        System.out.print("ID do cliente: ");
-        long id;
+
+ private void buscarPorId() {
+    while (true) {
         try {
-            id = Long.parseLong(scanner.nextLine().trim());
+            System.out.print("ID do cliente: ");
+            long id = Long.parseLong(scanner.nextLine().trim());
+            System.out.println(clienteService.buscarPorId(id));
+            break;
         } catch (NumberFormatException e) {
-            System.out.println("Erro: ID deve ser um numero inteiro.");
-            return;
+            System.out.println("Erro: Digite apenas números.");
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+            break;
         }
-        System.out.println(clienteService.buscarPorId(id));
-    } catch (Exception e) {
-        System.out.println("Erro: " + e.getMessage());
     }
 }
+
 
   private void atualizar() {
     long id = 0;
@@ -118,7 +121,6 @@ public class ClienteMenu {
         System.out.println("Erro: ID inválido. Digite apenas números.");
     }
 
-    
     while (true) {
         System.out.print("Novo nome: ");
         nome = scanner.nextLine().trim();
@@ -127,7 +129,6 @@ public class ClienteMenu {
         }
         System.out.println("Erro: Nome inválido (mínimo 3 letras e sem números).");
     }
-
 
     while (true) {
         System.out.print("Novo e-mail: ");
@@ -144,6 +145,7 @@ public class ClienteMenu {
         }
     }
 }
+
 
    private void deletar() {
     try {
