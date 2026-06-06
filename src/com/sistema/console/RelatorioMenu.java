@@ -77,15 +77,21 @@ private void produtosMaisVendidos() {
         }
     }
 
-    private void estoqueCritico() {
+  private void estoqueCritico() {
+    while (true) {
         try {
             System.out.print("Exibir produtos com estoque abaixo de: ");
             int limite = Integer.parseInt(scanner.nextLine().trim());
             imprimir(relatorioService.estoqueCritico(limite));
+            break;
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: Digite apenas números.");
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
+            break;
         }
     }
+}
 
     private void imprimir(List<String> linhas) {
         System.out.println();
