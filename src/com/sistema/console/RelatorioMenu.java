@@ -17,7 +17,7 @@ private final Scanner scanner;
  public void exibir() {
         boolean voltar = false;
         while (!voltar) {
-            System.out.println("\n--- RELATORIOS ---");
+            System.out.println("\nRELATORIOS ");
             System.out.println("1. Top clientes por valor gasto");
             System.out.println("2. Produtos mais vendidos");
             System.out.println("3. Pedidos por status (ticket medio)");
@@ -38,14 +38,20 @@ private final Scanner scanner;
 
 
 private void topClientes() {
+    while (true) {
         try {
             System.out.print("Quantos clientes exibir? ");
             int limite = Integer.parseInt(scanner.nextLine().trim());
             imprimir(relatorioService.topClientes(limite));
+            break;
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: Digite apenas números.");
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
+            break;
         }
     }
+}
 
 private void produtosMaisVendidos() {
         try {
