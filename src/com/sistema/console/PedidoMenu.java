@@ -83,29 +83,53 @@ public class PedidoMenu {
     }
 
     private void buscarPorId() {
-        try {
+    try {
+        long id = -1;
+        while (id < 0) {
             System.out.print("ID do pedido: ");
-            long id = Long.parseLong(scanner.nextLine().trim());
-            System.out.println(pedidoService.buscarPorId(id));
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
-    }
-
-    private void listarPorCliente() {
-        try {
-            System.out.print("ID do cliente: ");
-            long clienteId = Long.parseLong(scanner.nextLine().trim());
-            List<Pedido> lista = pedidoService.listarPorCliente(clienteId);
-            if (lista.isEmpty()) {
-                System.out.println("Nenhum pedido encontrado para esse cliente.");
-                return;
+            String entrada = scanner.nextLine().trim();
+            try {
+                id = Long.parseLong(entrada);
+                if (id <= 0) {
+                    System.out.println("Digite um numero positivo.");
+                    id = -1;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada invalida. Digite apenas numeros.");
             }
-            lista.forEach(System.out::println);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
         }
+        System.out.println(pedidoService.buscarPorId(id));
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
+
+   private void listarPorCliente() {
+    try {
+        long clienteId = -1;
+        while (clienteId < 0) {
+            System.out.print("ID do cliente: ");
+            String entrada = scanner.nextLine().trim();
+            try {
+                clienteId = Long.parseLong(entrada);
+                if (clienteId <= 0) {
+                    System.out.println("Digite um numero positivo.");
+                    clienteId = -1;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada invalida. Digite apenas numeros.");
+            }
+        }
+        List<Pedido> lista = pedidoService.listarPorCliente(clienteId);
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum pedido encontrado para esse cliente.");
+            return;
+        }
+        lista.forEach(System.out::println);
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
+    }
+}
 
     private void enviarParaFila() {
         try {
