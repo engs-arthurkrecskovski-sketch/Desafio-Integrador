@@ -96,7 +96,16 @@ ESTRUTURA DO PROJETO
             └── Schema.sql
 
 
-DECISÕES ARQUITETURAIS
+DECISÕES TOMADAS
 
     ISOLAMNETO DO SQL NO CONSOLE:
         Nenhuma classe do pacote console importa java.sql ou executa queries. Os menus chamam apenas os Services, que por sua vez delegam aos DAOs. Isso garante separação clara entre apresentação, regras de negócio e persistência.
+
+    OBJETOS SEM SETTERS:
+        Todas as entidades: Cliente, Produto, Pedido, ItemPedido são imutáveis. Ao ler um ResultSet, os dados são passados diretamente ao construtor — o objeto nasce já populado e válido, sem risco de estado incompleto.
+
+    CONTROLE TRANSACIONAL:
+        A criação de pedidos usa uma única Connection com autoCommit=false. O decremento de estoque é feito com um UPDATE condicional WHERE quantidade_estoque >= ?, garantindo atomicidade mesmo sob concorrência. Se qualquer etapa falhar, é feito rollback.
+
+    
+
