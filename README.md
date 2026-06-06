@@ -34,7 +34,7 @@ COMPILAÇÃO E EXECUÇÃO
         mvn compile
         mvn exec:java -Dexec.mainClass="com.sistema.Main"
     
-        Maven SEM MAVEN - COMPILAÇÃO MANUAL
+        SEM MAVEN - COMPILAÇÃO MANUAL
         bash
         
         COMPILE TODOS OS FONTES
@@ -43,4 +43,56 @@ COMPILAÇÃO E EXECUÇÃO
 
         EXECUTE
         java -cp out:mysql-connector-java-8.x.jar com.sistema.Main
+
+
+Estrutura do projeto
+
+        SRC/
+        └── Com/Sistema   
+            │        
+            ├── Console - Menus de console / Sem nenhum import java.sql
+            │   ├── ClienteMenu.java
+            │   ├── ProdutoMenu.java
+            │   ├── PedidoMenu.java
+            │   └── RelatorioMenu.java
+            │ 
+            ├── Dao - Acesso ao banco via JDBC
+            │   ├── ClienteDAO.java
+            │   ├── ItemPedidoDAO.java    
+            │   ├── PedidoDAO.java
+            │   ├── ProdutoDAO.java
+            │   └── RelatorioDAO.java
+            │
+            ├── Exception - Exceções customizadas
+            │   ├── EmailInvalidoException.java
+            │   ├── EntidadeNaoEncontradaException.java
+            │   ├── EstoqueInsuficienteException.java
+            │   └── ValidacaoException.java
+            │
+            ├── Model - Entidades imutáveis / Sem setters
+            │   ├── Categoria.java               
+            │   ├── Cliente.java                 
+            │   ├── ItemPedido.java
+            │   ├── Pedido.java
+            │   ├── Produto.java
+            │   └── StatusPedido.java
+            │ 
+            ├── Service - Regras de negócio e validações
+            │   ├── ClienteService.java
+            │   ├── PedidoService.java            
+            │   ├── ProdutoService.java
+            │   └── RelatorioService.java
+            │
+            ├── Thread
+            │   └── OrderProcessor.java
+            │
+            ├── Util
+            │   └── ConnectionUtil.java
+            │
+            ├── Main.java
+            │         
+            ├── Readme.md
+            │ 
+            └── Schema.sql
+
 
