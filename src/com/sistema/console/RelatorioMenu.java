@@ -54,14 +54,20 @@ private void topClientes() {
 }
 
 private void produtosMaisVendidos() {
+    while (true) {
         try {
             System.out.print("Quantos produtos exibir? ");
             int limite = Integer.parseInt(scanner.nextLine().trim());
             imprimir(relatorioService.produtosMaisVendidos(limite));
+            break;
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: Digite apenas números.");
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
+            break;
         }
     }
+}
 
     private void pedidosPorStatus() {
         try {
