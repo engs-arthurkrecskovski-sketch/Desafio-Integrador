@@ -21,7 +21,7 @@ public class PedidoMenu {
     public void exibir() {
         boolean voltar = false;
         while (!voltar) {
-            System.out.println("\n--- PEDIDOS ---");
+            System.out.println("\n PEDIDOS ");
             System.out.println("1. Criar pedido");
             System.out.println("2. Listar todos");
             System.out.println("3. Buscar por ID");
@@ -44,30 +44,49 @@ public class PedidoMenu {
         }
     }
 
-    private void criar() {
-        try {
-            System.out.print("ID do cliente: ");
-            long clienteId = Long.parseLong(scanner.nextLine().trim());
-
-            Map<Long, Integer> itens = new LinkedHashMap<>();
-            System.out.println("Adicione os itens (digite 0 como ID para finalizar):");
-
-            while (true) {
-                System.out.print("  ID do produto: ");
-                long produtoId = Long.parseLong(scanner.nextLine().trim());
-                if (produtoId == 0) break;
-
-                System.out.print("  Quantidade: ");
-                int qtd = Integer.parseInt(scanner.nextLine().trim());
-                itens.put(produtoId, qtd);
+   private void criar() {
+    try {
+        long clienteId;
+        while (true) {
+            try {
+                System.out.print("ID do cliente: ");
+                clienteId = Long.parseLong(scanner.nextLine().trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Erro: Digite apenas números.");
             }
-
-            Pedido pedido = pedidoService.criar(clienteId, itens);
-            System.out.println("Pedido criado com sucesso!\n" + pedido);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
         }
+
+        Map<Long, Integer> itens = new LinkedHashMap<>();
+        System.out.println("Adicione os itens (digite 0 como ID para finalizar):");
+
+        while (true) {
+            System.out.print("  ID do produto: ");
+            String entradaProd = scanner.nextLine().trim();
+            if (!entradaProd.matches("\\d+")) {
+                System.out.println("Erro: Digite apenas números.");
+                continue;
+            }
+            long produtoId = Long.parseLong(entradaProd);
+            if (produtoId == 0) break;
+
+            System.out.print("  Quantidade: ");
+            String entradaQtd = scanner.nextLine().trim();
+            if (!entradaQtd.matches("\\d+")) {
+                System.out.println("Erro: Digite apenas números.");
+                continue;
+            }
+            int qtd = Integer.parseInt(entradaQtd);
+
+            itens.put(produtoId, qtd);
+        }
+
+        Pedido pedido = pedidoService.criar(clienteId, itens);
+        System.out.println("Pedido criado com sucesso!\n" + pedido);
+    } catch (Exception e) {
+        System.out.println("Erro: " + e.getMessage());
     }
+}
 
     private void listarTodos() {
         try {
@@ -132,16 +151,24 @@ public class PedidoMenu {
 }
 
     private void enviarParaFila() {
+    while (true) {
         try {
             System.out.print("ID do pedido: ");
             long id = Long.parseLong(scanner.nextLine().trim());
             pedidoService.enviarParaFila(id);
+            break;
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: Digite apenas números.");
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
+            break;
         }
     }
+}
 
-    private void listarPorStatus() {
+
+  private void listarPorStatus() {
+    while (true) {
         try {
             System.out.println("Status: 1-ABERTO  2-FILA  3-PROCESSANDO  4-FINALIZADO");
             System.out.print("Escolha: ");
@@ -150,16 +177,23 @@ public class PedidoMenu {
                 case "2" -> StatusPedido.FILA;
                 case "3" -> StatusPedido.PROCESSANDO;
                 case "4" -> StatusPedido.FINALIZADO;
-                default  -> throw new IllegalArgumentException("Status invalido.");
+                default  -> throw new IllegalArgumentException("Opção inválida. Escolha de 1 a 4.");
             };
+            
             List<Pedido> lista = pedidoService.listarPorStatus(status);
             if (lista.isEmpty()) {
                 System.out.println("Nenhum pedido com esse status.");
-                return;
+            } else {
+                lista.forEach(System.out::println);
             }
-            lista.forEach(System.out::println);
+            break;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
+            break;
         }
     }
+}
+
 }

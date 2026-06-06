@@ -17,7 +17,7 @@ private final Scanner scanner;
  public void exibir() {
         boolean voltar = false;
         while (!voltar) {
-            System.out.println("\nRELATORIOS ");
+            System.out.println("\n RELATORIOS ");
             System.out.println("1. Top clientes por valor gasto");
             System.out.println("2. Produtos mais vendidos");
             System.out.println("3. Pedidos por status (ticket medio)");

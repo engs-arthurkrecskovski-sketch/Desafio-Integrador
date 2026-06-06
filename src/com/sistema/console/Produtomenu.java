@@ -20,7 +20,7 @@ public class ProdutoMenu {
     public void exibir() {
         boolean voltar = false;
         while (!voltar) {
-            System.out.println("\nPRODUTOS ");
+            System.out.println("\n PRODUTOS ");
             System.out.println("1. Cadastrar produto");
             System.out.println("2. Listar todos");
             System.out.println("3. Listar por categoria");
