@@ -45,7 +45,7 @@ COMPILAÇÃO E EXECUÇÃO
         java -cp out:mysql-connector-java-8.x.jar com.sistema.Main
 
 
-Estrutura do projeto
+ESTRUTURA DO PROJETO
 
         SRC/
         └── Com/Sistema   
@@ -96,3 +96,7 @@ Estrutura do projeto
             └── Schema.sql
 
 
+DECISÕES ARQUITETURAIS
+
+    ISOLAMNETO DO SQL NO CONSOLE:
+        Nenhuma classe do pacote console importa java.sql ou executa queries. Os menus chamam apenas os Services, que por sua vez delegam aos DAOs. Isso garante separação clara entre apresentação, regras de negócio e persistência.
